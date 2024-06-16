@@ -1,0 +1,15 @@
+.admin-title{
+    color:white;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding: 15px 20px;
+    background-color: #666;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+}
+.admin-title-name{
+    font-size: 30px;
+    font-weight: 400;
+}

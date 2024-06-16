@@ -41,7 +41,7 @@ export const AdminNavbar = () => {
                     <div>
                     <img src={department} alt="" />
                     <span>Departments</span>
-                    <img src={activeDropdown === 'departments' ? down_icon : up_icon} alt='' />
+                    <img src={activeDropdown === 'departments' ? up_icon : down_icon} alt='' className='admin-navbar-arrow'/>
                     </div>
                     {activeDropdown === 'departments' && (
                         <ul className='admin-navbar-sub'>
@@ -54,7 +54,7 @@ export const AdminNavbar = () => {
                     <div>
                     <img src={doctor} alt="" />
                     <span>Doctors</span>
-                    <img src={activeDropdown === 'doctors' ? down_icon : up_icon} alt='' />
+                    <img src={activeDropdown === 'doctors' ?  up_icon : down_icon} alt='' className='admin-navbar-arrow'/>
                     </div>
                     {activeDropdown === 'doctors' && (
                         <ul className='admin-navbar-sub'>

@@ -1,47 +1,75 @@
 .admin-navbar{
-    min-width: 280px;
-    max-width: 280px;
-    height: 100vh;
+    min-width: 250px;
+    max-width: 250px;
+    min-height: 100vh;
+    padding-top: 20px;
     box-sizing: border-box;
-    padding: 30px 20px;
     margin: 0;
-    border: none;
     display: flex;
     flex-direction: column;
     align-items: center;
     font-size: 18px;
     background: linear-gradient(to left, #E57498, #B24592);
+    transition: all 0.3s;
 }
 .admin-navbar a{
     text-decoration: none;
     color: #fff;
 }
-.admin-navbar-main{
-    list-style: none;
-}
-.admin-navbar-sub{
-    list-style: none;
-}
 .admin-navbar-logo{
     width: 230px;
 }
+.admin-navbar-main{
+    list-style: none;
+    padding-left: 0;
+    margin-top: 25px;
+    width: 100%;
+}
+.admin-navbar-sub{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .admin-navbar-main img{
     width: 18px;
-    padding-right: 10px;
-    padding-left: 10px;
+}
+.admin-navbar-main-list{
+    position: relative;
+    margin: 2px 0;
+    padding: 10px 0px;
+}
+.admin-navbar-main-list-active{
+    position: relative;
+    margin: 2px 0;
+    padding: 10px 0px;
 }
 .admin-navbar-main-list div{
     color:#fff;
     padding: 10px 10px 10px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.admin-navbar-main-list div span,
+.admin-navbar-main-list-active div span{
+    flex-grow: 1;
+    padding-left: 20px;
 }
 .admin-navbar-main-list-active div{
     color:#fff;
     background-color: #555;
     padding: 10px 10px 10px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
+/* .admin-navbar-arrow{
+    padding-right: 10px;
+} */
 .admin-navbar-sub-list{
+    padding: 10px 10px 10px 50px;
     color: #ffffffb3;
     background-color: #666;
     width: 100%;
-    padding: 10px 0px;
 }

@@ -1,0 +1,47 @@
+.admin-addDepartment {
+    height: 100vh;
+    width: 100vw;
+    background-color: #E7F3ED;
+}
+
+.admin-addDepartment-container {
+    padding: 10px 15px;
+    margin: 20px 15px;
+    background-color: #fff;
+    border-radius: 2px;
+}
+
+.admin-addDepartment-container h1 {
+    color: #E57498;
+    font-size: 22px;
+    padding-bottom: .5rem;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eeeeee;
+}
+.admin-addDepartment-container form{
+    display: flex;
+    flex-direction: column;
+    color:#3e5569;
+}
+.admin-addDepartment-container form div{
+    display: flex;
+    flex-direction: column;
+}
+.admin-addDepartment-container form div label{
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 0.5rem;
+}
+.admin-addDepartment-container form div input{
+    padding: .5rem .75rem;
+    border-color: #E7F3ED;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+.admin-addDepartment-container form div h6{
+    color:red
+}
+.admin-addDepartment-container form div img{
+    height: 250px;
+    width: 250px;
+}
