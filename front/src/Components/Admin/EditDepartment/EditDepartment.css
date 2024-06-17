@@ -1,46 +1,46 @@
-.admin-addDepartment {
+.admin-editDepartment {
     height: 100vh;
     width: 100vw;
     background-color: #E7F3ED;
 }
 
-.admin-addDepartment-container {
+.admin-editDepartment-container {
     padding: 10px 15px;
     margin: 20px 15px;
     background-color: #fff;
     border-radius: 2px;
 }
 
-.admin-addDepartment-container h1 {
+.admin-editDepartment-container h1 {
     color: #E57498;
     font-size: 22px;
     padding-bottom: .5rem;
     margin-bottom: 15px;
     border-bottom: 1px solid #eeeeee;
 }
-.admin-addDepartment-container form{
+.admin-editDepartment-container form{
     display: flex;
     flex-direction: column;
     color:#3e5569;
 }
-.admin-addDepartment-input{
+.admin-editDepartment-input{
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
 }
-.admin-addDepartment-container form div label{
+.admin-editDepartment-container form div label{
     font-weight: bold;
     font-size: 14px;
     margin-bottom: 2px;
 }
-.admin-addDepartment-container form div input{
+.admin-editDepartment-container form div input{
     padding: .5rem .75rem;
     border-color: #E7F3ED;
     border: 1px solid #ced4da;
     border-radius: .25rem;
     width: 45%;
 }
-.admin-addDepartment-container form div textarea{
+.admin-editDepartment-container form div textarea{
     padding: .5rem .75rem;
     border-color: #E7F3ED;
     border: 1px solid #ced4da;
@@ -48,24 +48,24 @@
     width: 45%;
     height: 80px;
 }
-.admin-addDepartment-container form div h6{
+.admin-editDepartment-container form div h6{
     color:red;
     font-size: 14px;
     font-weight: 300;
     padding-top: 3px;
 }
-.admin-addDepartment-container form div img{
+.admin-editDepartment-container form div img{
     height: 250px;
     width: 250px;
     cursor: pointer;
     border:1px solid #ced4da;
 }
-.admin-addDepartment-btn{
+.admin-editDepartment-btn{
     display: flex;
     flex-direction: row;
     row-gap: 100px;
 }
-.admin-addDepartment-btn button{
+.admin-editDepartment-btn button{
     background-color: #E57498;
     border: 1px solid #fff;
     color: #fff;

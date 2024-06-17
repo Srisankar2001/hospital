@@ -22,6 +22,7 @@ app.use(cors({
     credentials: true
 }))
 app.use(cookieParser())
+app.use(express.static("upload"))
 
 app.use("/admin",adminRouter)
 app.use("/patient",patientRouter)

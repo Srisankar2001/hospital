@@ -1,71 +1,68 @@
-.admin-addDepartment {
+.admin-addDoctor {
     height: 100vh;
     width: 100vw;
     background-color: #E7F3ED;
 }
 
-.admin-addDepartment-container {
+.admin-addDoctor-container {
     padding: 10px 15px;
     margin: 20px 15px;
     background-color: #fff;
     border-radius: 2px;
 }
 
-.admin-addDepartment-container h1 {
+.admin-addDoctor-container h1 {
     color: #E57498;
     font-size: 22px;
     padding-bottom: .5rem;
     margin-bottom: 15px;
     border-bottom: 1px solid #eeeeee;
 }
-.admin-addDepartment-container form{
+.admin-addDoctor-container form{
     display: flex;
     flex-direction: column;
     color:#3e5569;
 }
-.admin-addDepartment-input{
+.admin-addDoctor-container form .admin-addDoctor-input-div{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.admin-addDoctor-input{
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
 }
-.admin-addDepartment-container form div label{
+.admin-addDoctor-container form div label{
     font-weight: bold;
     font-size: 14px;
     margin-bottom: 2px;
 }
-.admin-addDepartment-container form div input{
+.admin-addDoctor-container form div input,
+.admin-addDoctor-container form div select{
     padding: .5rem .75rem;
     border-color: #E7F3ED;
     border: 1px solid #ced4da;
     border-radius: .25rem;
-    width: 45%;
+    width: 65%;
 }
-.admin-addDepartment-container form div textarea{
-    padding: .5rem .75rem;
-    border-color: #E7F3ED;
-    border: 1px solid #ced4da;
-    border-radius: .25rem;
-    width: 45%;
-    height: 80px;
-}
-.admin-addDepartment-container form div h6{
+.admin-addDoctor-container form div h6{
     color:red;
     font-size: 14px;
     font-weight: 300;
     padding-top: 3px;
 }
-.admin-addDepartment-container form div img{
+.admin-addDoctor-container form div img{
     height: 250px;
     width: 250px;
     cursor: pointer;
     border:1px solid #ced4da;
 }
-.admin-addDepartment-btn{
+.admin-addDoctor-btn{
     display: flex;
     flex-direction: row;
     row-gap: 100px;
 }
-.admin-addDepartment-btn button{
+.admin-addDoctor-btn button{
     background-color: #E57498;
     border: 1px solid #fff;
     color: #fff;

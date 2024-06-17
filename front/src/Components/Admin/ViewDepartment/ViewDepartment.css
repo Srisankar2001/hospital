@@ -1,0 +1,58 @@
+.admin-viewDepartment {
+    height: 100vh;
+    width: 100vw;
+    background-color: #E7F3ED;
+    color: #3e5569;
+}
+
+.admin-viewDepartment-container {
+    padding: 10px 15px;
+    margin: 20px 15px;
+    background-color: #fff;
+    border-radius: 2px;
+}
+
+.admin-viewDepartment-container h1 {
+    color: #E57498;
+    font-size: 22px;
+    padding-bottom: .5rem;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eeeeee;
+}
+.admin-viewDepartment-container img{
+    height: 150px;
+    width: 150px;
+}
+.admin-viewDepartment-container table{
+    padding: 10px 20px;
+    width:100%;
+    display: table;
+}
+.admin-viewDepartment-container table tr{
+    display: grid;
+    grid-template-columns: 3fr 1fr 4fr 1fr;
+}
+.admin-viewDepartment-container table tr th{
+    font-size: 18px;
+    font-weight: 400;
+    border: 1px solid #dee2e6;
+}
+.admin-viewDepartment-container table tr td{
+    font-size: 15px;
+    font-weight: 200;
+    border: 1px solid #dee2e6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0px;
+}
+.admin-viewDepartment-container table tr td button{
+    color: #fff;
+    font-size: 15px;
+    font-weight: 400;
+    background-color: #28a745;
+    border-color: #28a745;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 5px;
+}
