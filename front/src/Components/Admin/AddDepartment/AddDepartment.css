@@ -1,5 +1,5 @@
 .admin-addDepartment {
-    height: 100vh;
+    min-height: 100%;
     width: 100vw;
     background-color: #E7F3ED;
 }

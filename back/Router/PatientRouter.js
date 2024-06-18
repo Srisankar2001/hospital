@@ -9,4 +9,7 @@ router.get("/getAll",patientController.getAll)
 router.post("/get",patientController.get)
 router.post("/register",upload.single("image"),patientController.register)
 
+router.put("/block",patientController.block)
+router.put("/unblock",patientController.unblock)
+
 module.exports = router

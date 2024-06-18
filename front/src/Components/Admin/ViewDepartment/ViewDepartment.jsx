@@ -3,26 +3,25 @@ import { useNavigate } from 'react-router-dom';
 import './ViewDepartment.css'
 import { AdminTitle } from '../Title/AdminTitle'
 import building from '../../../Assets/building.png'
-import axios from 'axios'
-
+import axiosInstance from '../../../Config/axiosConfig';
 export const ViewDepartment = () => {
     const navigate = useNavigate()
     const [data, setData] = useState([])
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get("http://localhost:3001/department/getAll")
+                const response = await axiosInstance.get("/department/getAll")
                 if (response.data.success) {
                     setData(response.data.data)
                 } else {
                     alert(response.data.message)
                 }
             } catch (error) {
-                alert(error.response.data.message)
+                alert(error.response?.data?.message || "Error Fetching Data")
             }
         }
         fetchData()
-    }, [])
+    }, [navigate])
 
     const renderData = () => {
         if (data.length === 0) {

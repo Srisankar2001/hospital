@@ -2,12 +2,10 @@ import React, { useEffect, useRef, useState } from 'react'
 import "./EditDepartment.css"
 import { AdminTitle } from '../Title/AdminTitle'
 import building from '../../../Assets/building.png'
-import { name } from '../../../Functions/name'
 import { useLocation, useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import axiosInstance from '../../../Config/axiosConfig'
 import { validate } from '../../../Functions/editDepartmentValidation'
 export const EditDepartment = () => {
-    axios.defaults.withCredentials = true
     const navigate = useNavigate()
     const location = useLocation()
     const { _id } = location.state
@@ -31,8 +29,7 @@ export const EditDepartment = () => {
                 const data = {
                     _id: _id
                 }
-                const response = await axios.post("http://localhost:3001/department/get", data)
-                console.log(response)
+                const response = await axiosInstance.post("/department/get", data)
                 if (response.data.success) {
                     setInput({
                         name: response.data.data.name,
@@ -44,7 +41,7 @@ export const EditDepartment = () => {
                     navigate("/viewDepartment")
                 }
             } catch (error) {
-                alert(error.response?.data?.message || "Error fetching data")
+                alert(error.response?.data?.message || "Error Fetching Data")
                 navigate("/viewDepartment")
             }
         }
@@ -55,10 +52,25 @@ export const EditDepartment = () => {
     };
     const handleChange = (e) => {
         if (e.target.name === 'image') {
-            setInput(prev => ({
-                ...prev,
-                image: e.target.files[0]
-            }))
+            const file = e.target.files[0];
+            if (file) {
+                if (file.type.startsWith('image/')) {
+                    setError(prev => ({
+                        ...prev,
+                        image: ""
+                    }))
+                    setInput(prev => ({
+                        ...prev,
+                        image: file
+                    }));
+                } else {
+                    setError(prev => ({
+                        ...prev,
+                        image: "Invalid image format"
+                    }))
+                    e.target.value = null;
+                }
+            }
         } else {
             setInput(prev => ({
                 ...prev,
@@ -87,8 +99,7 @@ export const EditDepartment = () => {
                         description: input.description.trim(),
                         image: input.image
                     }
-                    const url = input.image instanceof File ? "http://localhost:3001/department/updateWithImage" : "http://localhost:3001/department/updateWithoutImage"
-                    const response = await axios.put(url, data,config)
+                    const response = input.image instanceof File ? await axiosInstance.put("/department/updateWithImage", data, config) : await axiosInstance.put("/department/updateWithoutImage", data)
                     if (response.data.success) {
                         alert(response.data.message)
                         navigate("/viewDepartment")
@@ -96,7 +107,7 @@ export const EditDepartment = () => {
                         alert(response.data.message)
                     }
                 } catch (error) {
-                    alert(error.response.data.message)
+                    alert(error.response?.data?.message || "Error Sending To Server")
                 }
             }
             postData()
@@ -125,7 +136,7 @@ export const EditDepartment = () => {
                         {error.image && <h6>{error.image}</h6>}
                     </div>
                     <div className='admin-editDepartment-btn'>
-                        <button onClick={handleSubmit}>Submit</button>
+                        <button onClick={handleSubmit}>Update</button>
                         <button onClick={handleClear}>Clear</button>
                     </div>
                 </form>

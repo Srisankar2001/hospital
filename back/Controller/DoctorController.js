@@ -75,9 +75,64 @@ const register = async (req, res) => {
     }
 }
 
+const updateWithoutImage = async (req, res) => {
+    const { _id , name, age, dob, gender, contactNumber, address } = req.body
+
+    if ( !_id || !name || !age || !dob || !gender || !contactNumber || !address) {
+        return res.status(400).json({ success: false, message: "Input all necessary data" })
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(_id)) {
+        return res.status(400).json({ success: false, message: "Invalid doctor ID" });
+    }
+
+    const id = new mongoose.Types.ObjectId(_id)
+
+    try {
+        const doctor = await Doctor.findOneAndUpdate({_id:id},{name:name,age:age,dob:dob,gender:gender,contactNumber:contactNumber,address:address})
+
+        const savedDoctor = await doctor.save()
+
+        if (savedDoctor) {
+            return res.status(200).json({ success: true, message: "Doctor updated successfully" })
+        }
+        return res.status(400).json({ success: false, message: "Doctor update failed" })
+    } catch (error) {
+        return res.status(500).json({ success: false, message: "Internal Server Error" })
+    }
+}
+
+const updateWithImage = async (req, res) => {
+    const { _id , name, age, dob, gender, contactNumber, address } = req.body
+    const image = req.file.filename
+
+    if ( !_id || !name || !age || !dob || !gender || !contactNumber || !address || !image) {
+        return res.status(400).json({ success: false, message: "Input all necessary data" })
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(_id)) {
+        return res.status(400).json({ success: false, message: "Invalid doctor ID" });
+    }
+
+    const id = new mongoose.Types.ObjectId(_id)
+
+    try {
+        const doctor = await Doctor.findOneAndUpdate({_id:id},{name:name,age:age,dob:dob,gender:gender,contactNumber:contactNumber,address:address,image:image})
+
+        const savedDoctor = await doctor.save()
+
+        if (savedDoctor) {
+            return res.status(200).json({ success: true, message: "Doctor updated successfully" })
+        }
+        return res.status(400).json({ success: false, message: "Doctor update failed" })
+    } catch (error) {
+        return res.status(500).json({ success: false, message: "Internal Server Error" })
+    }
+}
+
 const getAll = async(req,res)=>{
     try{
-        const doctors = await Doctor.find({})
+        const doctors = await Doctor.find({}).populate('department','name').populate('user','active')
         return res.status(200).json({success:true,data:doctors})
     }catch(error){
         return res.status(500).json({ success: false, message: "Internal Server Error" })
@@ -85,27 +140,106 @@ const getAll = async(req,res)=>{
 }
 
 const get = async(req,res)=>{
-    const {id} = req.body
+    const {_id} = req.body
 
-    if(!id){
+    if(!_id){
         return res.status(400).json({ success: false, message: "Input necessary data" })
     }
 
+    if (!mongoose.Types.ObjectId.isValid(_id)) {
+        return res.status(400).json({ success: false, message: "Invalid doctor ID" });
+    }
+
+    const id = new mongoose.Types.ObjectId(_id)
+
     try{
-        const doctor = await Doctor.findOne({id:id})
+        const doctor = await Doctor.findById(id).populate('department','name')
+
         if(!doctor){
             return res.status(400).json({ success: false, message: "Doctor not found" })
         }
-        return res.status(400).json({ success: true, message: doctor })
+        return res.status(200).json({ success: true, data: doctor })
     }catch(error){
         return res.status(500).json({ success: false, message: "Internal Server Error" })
     }
 }
 
+const block = async(req,res)=>{
+    const {_id} = req.body
+    if(!_id){
+        return res.status(400).json({ success: false, message: "Input necessary data" })
+    }
+    if (!mongoose.Types.ObjectId.isValid(_id)) {
+        return res.status(400).json({ success: false, message: "Invalid doctor ID" });
+    }
+    const id = new mongoose.Types.ObjectId(_id)
+    try{
+        const user = await User.findById(id);
+
+        if (!user) {
+            return res.status(404).json({ success: false, message: "Doctor not found" });
+        }
+
+        if (!user.active) {
+            return res.status(400).json({ success: false, message: "Doctor is already blocked" });
+        }
+
+        user.active = false;
+
+        const savedUser = await user.save();
+
+        if (!savedUser) {
+            return res.status(400).json({ success: false, message: "Doctor block failed" });
+        }
+        return res.status(200).json({ success: true, message: "Doctor blocked successfully" });
+    }catch(error){
+        return res.status(500).json({ success: false, message: "Internal Server Error" })
+    }
+}
+
+const unblock = async(req,res)=>{
+    const {_id} = req.body
+    if(!_id){
+        return res.status(400).json({ success: false, message: "Input necessary data" })
+    }
+    if (!mongoose.Types.ObjectId.isValid(_id)) {
+        return res.status(400).json({ success: false, message: "Invalid doctor ID" });
+    }
+    const id = new mongoose.Types.ObjectId(_id)
+    try{
+        const user = await User.findById(id);
+
+        if (!user) {
+            return res.status(404).json({ success: false, message: "Doctor not found" });
+        }
+
+        if (user.active) {
+            return res.status(400).json({ success: false, message: "Doctor is already unblocked" });
+        }
+
+        user.active = true;
+
+        const savedUser = await user.save();
+
+        if (!savedUser) {
+            return res.status(400).json({ success: false, message: "Doctor unblock failed" });
+        }
+        return res.status(200).json({ success: true, message: "Doctor unblocked successfully" });
+    }catch(error){
+        return res.status(500).json({ success: false, message: "Internal Server Error" })
+    }
+}
+
+
+
 const doctorController = {
     register,
+    updateWithImage,
+    updateWithoutImage,
     get,
-    getAll
+    getAll,
+    block,
+    unblock
 }
 
 module.exports = {doctorController}

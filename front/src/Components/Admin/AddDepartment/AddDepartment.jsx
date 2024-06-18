@@ -4,7 +4,7 @@ import { AdminTitle } from '../Title/AdminTitle'
 import building from '../../../Assets/building.png'
 import image from '../../../Assets/image.png'
 import { validate } from '../../../Functions/depatmentValidation'
-import axios from 'axios'
+import axiosInstance from '../../../Config/axiosConfig'
 export const AddDepartment = () => {
   const [input,setInput] = useState({
     name:"",
@@ -62,7 +62,7 @@ export const AddDepartment = () => {
             description : input.description.trim(),
             image : input.image
           }
-          const response = await axios.post("http://localhost:3001/department/register",data,config)
+          const response = await axiosInstance.post("/department/register",data,config)
           if(response.data.success){
             alert(response.data.message)
             handleClear()
@@ -70,7 +70,7 @@ export const AddDepartment = () => {
             alert(response.data.message)
           }
         }catch(error){
-          alert("Error")
+          alert(error.response?.data?.message || "Error Sending To Server")
         }
       }
       postData()

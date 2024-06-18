@@ -1,5 +1,5 @@
 .admin-viewDepartment {
-    height: 100vh;
+    min-height: 100%;
     width: 100vw;
     background-color: #E7F3ED;
     color: #3e5569;
@@ -50,9 +50,12 @@
     color: #fff;
     font-size: 15px;
     font-weight: 400;
-    background-color: #28a745;
-    border-color: #28a745;
-    border: none;
+    background-color: #198754;
+    border: 1px solid #198754;
     padding: 10px 30px;
     border-radius: 5px;
+}
+.admin-viewDepartment-container table tr td button:hover{
+    background-color: #157347;
+    border: 1px solid #146c43;
 }

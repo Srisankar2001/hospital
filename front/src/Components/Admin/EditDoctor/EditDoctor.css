@@ -1,68 +1,68 @@
-.admin-addDoctor {
+.admin-editDoctor {
     min-height: 100%;
     width: 100vw;
     background-color: #E7F3ED;
 }
 
-.admin-addDoctor-container {
+.admin-editDoctor-container {
     padding: 10px 15px;
     margin: 20px 15px;
     background-color: #fff;
     border-radius: 2px;
 }
 
-.admin-addDoctor-container h1 {
+.admin-editDoctor-container h1 {
     color: #E57498;
     font-size: 22px;
     padding-bottom: .5rem;
     margin-bottom: 15px;
     border-bottom: 1px solid #eeeeee;
 }
-.admin-addDoctor-container form{
+.admin-editDoctor-container form{
     display: flex;
     flex-direction: column;
     color:#3e5569;
 }
-.admin-addDoctor-container form .admin-addDoctor-input-div{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
-.admin-addDoctor-input{
+.admin-editDoctor-input{
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
 }
-.admin-addDoctor-container form div label{
+.admin-editDoctor-container form .admin-editDoctor-input-div{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.admin-editDoctor-container form div label{
     font-weight: bold;
     font-size: 14px;
     margin-bottom: 2px;
 }
-.admin-addDoctor-container form div input,
-.admin-addDoctor-container form div select{
+.admin-editDoctor-container form div input,
+.admin-editDoctor-container form div select{
     padding: .5rem .75rem;
     border-color: #E7F3ED;
     border: 1px solid #ced4da;
     border-radius: .25rem;
-    width: 65%;
+    width: 45%;
 }
-.admin-addDoctor-container form div h6{
+.admin-editDoctor-container form div h6{
     color:red;
     font-size: 14px;
     font-weight: 300;
     padding-top: 3px;
 }
-.admin-addDoctor-container form div img{
+.admin-editDoctor-container form div img{
     height: 250px;
     width: 250px;
     cursor: pointer;
     border:1px solid #ced4da;
 }
-.admin-addDoctor-btn{
+.admin-editDoctor-btn{
     display: flex;
     flex-direction: row;
     row-gap: 100px;
 }
-.admin-addDoctor-btn button{
+.admin-editDoctor-btn button{
     background-color: #E57498;
     border: 1px solid #fff;
     color: #fff;

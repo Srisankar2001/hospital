@@ -56,7 +56,6 @@ const updateWithImage = async (req, res) => {
 }
 
 const updateWithoutImage = async (req, res) => {
-    console.log(req.body)
     const { _id , name, description } = req.body
     if ( !_id || !name || !description) {
         return res.status(400).json({ success: false, message: "Input all necessary data" })

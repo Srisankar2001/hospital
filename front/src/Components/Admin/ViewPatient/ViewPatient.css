@@ -1,0 +1,91 @@
+.admin-viewPatient {
+    min-height: 100%;
+    width: 100vw;
+    background-color: #E7F3ED;
+    color: #3e5569;
+}
+
+.admin-viewPatient-container {
+    padding: 10px 15px;
+    margin: 20px 15px;
+    background-color: #fff;
+    border-radius: 2px;
+}
+
+.admin-viewPatient-container h1 {
+    color: #E57498;
+    font-size: 22px;
+    padding-bottom: .5rem;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eeeeee;
+}
+.admin-viewPatient-container img{
+    height: 150px;
+    width: 150px;
+}
+.admin-viewPatient-container table{
+    padding: 10px 20px;
+    width:100%;
+    display: table;
+}
+.admin-viewPatient-container table tr{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+.admin-viewPatient-container table tr th{
+    font-size: 18px;
+    font-weight: 400;
+    border: 1px solid #dee2e6;
+}
+.admin-viewPatient-container table tr td{
+    font-size: 15px;
+    font-weight: 200;
+    border: 1px solid #dee2e6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0px;
+}
+.admin-viewPatient-container table tr td button{
+    margin: 5px;
+}
+.admin-viewPatient-container table tr td .admin-viewPatient-edit{
+    color: #fff;
+    font-size: 15px;
+    font-weight: 400;
+    background-color: #198754;
+    border: 1px solid #198754;
+    padding: 10px 30px;
+    border-radius: 5px;
+}
+.admin-viewPatient-container table tr td .admin-viewPatient-edit:hover{
+    background-color: #157347;
+    border: 1px solid #146c43;
+}
+.admin-viewPatient-container table tr td .admin-viewPatient-unblock{
+    color: #fff;
+    font-size: 15px;
+    font-weight: 400;
+    background-color: #ffc107;
+    border: 1px solid #ffc107;
+    padding: 10px 30px;
+    border-radius: 5px;
+}
+.admin-viewPatient-container table tr td .admin-viewPatient-unblock:hover{
+    background-color: #ffca2c;
+    border: 1px solid  #ffc720;
+}
+.admin-viewPatient-container table tr td .admin-viewPatient-block{
+    color: #fff;
+    font-size: 15px;
+    font-weight: 400;
+    background-color: #dc3545;
+    border: 1px solid #dc3545;
+    padding: 10px 30px;
+    border-radius: 5px;
+}
+.admin-viewPatient-container table tr td .admin-viewPatient-block:hover{
+    background-color: #bb2d3b;
+    border: 1px solid #b02a37;
+}
