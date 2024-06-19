@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './AdminNavbar.css';
 
-import logo from '../../../Assets/logo-2.png'
+import logo from '../../../Assets/logo.jpeg'
 import up_icon from '../../../Assets/up-arrow.png';
 import down_icon from '../../../Assets/down-arrow.png';
 import home from '../../../Assets/home.png';

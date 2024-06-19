@@ -1,0 +1,106 @@
+.register{
+    min-height: calc(100vh - 80px);
+    width: 100vw;
+    background-color: #E7F3ED;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.register-container{
+    padding: 15px 25px;
+    margin: 20px 15px;
+    background-color: #fff;
+    border-radius: 2px;
+    min-width: 500px;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+}
+.register-container h1{
+    color: #E57498;
+    font-size: 22px;
+    font-weight: 400;
+    padding-bottom: .5rem;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eeeeee;
+}
+.register-container form{
+    display: flex;
+    flex-direction: column;
+    color:#3e5569;
+}
+.register-input-div{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.register-input{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+.register-input label{
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+.register-input input,
+.register-input select{
+    padding: .5rem .75rem;
+    border-color: #E7F3ED;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    width: 400px;
+}
+.register-input h6{
+    color:red;
+    font-size: 14px;
+    font-weight: 300;
+    padding-top: 3px;
+}
+.register-image h6{
+    color:red;
+    font-size: 14px;
+    font-weight: 300;
+    padding-top: 3px;
+}
+.register-btn{
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+.register-btn input{
+    background-color: #E57498;
+    border: 1px solid #fff;
+    color: #fff;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 10px 20px;
+    border-radius: 0.3rem;
+}
+@media(max-width:768px){
+    .register-container{
+        padding: 15px 25px;
+        margin: 20px 15px;
+        border-radius: 2px;
+        min-width: 400px;
+        min-height: 220px;
+    }
+    .register-container h1{
+        font-size: 20px;
+        font-weight: 300;
+        margin-bottom: 12px;
+    }
+    .register-input label{
+        font-size: 12px;
+    }
+    .register-input input{
+        width: 350px;
+    }
+    .register-btn input{
+        font-size: 13px;
+        font-weight: 200;
+        padding: 8px 15px;
+    }
+}

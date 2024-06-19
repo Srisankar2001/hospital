@@ -175,6 +175,7 @@ export const AddDoctor = () => {
                                 <option value="Female">Female</option>
                                 <option value="Other">Other</option>
                             </select>
+                            {error.gender && <h6>{error.gender}</h6>}
                         </div>
                         <div className='admin-addDoctor-input'>
                             <label>Department</label>
@@ -182,6 +183,7 @@ export const AddDoctor = () => {
                                 <option value="">Select department</option>
                                 {renderDepartment()}
                             </select>
+                            {error.department && <h6>{error.department}</h6>}
                         </div>
                         <div className='admin-addDoctor-input'>
                             <label>Email</label>

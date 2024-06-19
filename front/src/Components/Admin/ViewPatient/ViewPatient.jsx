@@ -48,15 +48,7 @@ export const ViewPatient = () => {
                         <td>{item.name}</td>
                         <td>{item.contactNumber}</td>
                         <td>{item.appointments.length}</td>
-
-                        <td>
-                            <button className='admin-viewPatient-edit' onClick={() => { navigate(`/editPatient`, { state: { _id: item._id } }) }}>Edit</button>
-                            {item.user.active ?
-                                <button className='admin-viewPatient-block' onClick={() => handleBlock(item.user._id)}>Block</button>
-                                :
-                                <button className='admin-viewPatient-unblock' onClick={() => handleUnblock(item.user._id)}>Unblock</button>
-                            }
-                        </td>
+                        {status}
                     </tr>
                 )
             })
@@ -111,8 +103,8 @@ export const ViewPatient = () => {
                         <th>ID</th>
                         <th>Name</th>
                         <th>Contact Number</th>
-                        <th>Department</th>
-                        <th>Action</th>
+                        <th>Last Visit</th>
+                        <th>Status</th>
                     </tr>
                     {renderData()}
                 </table>

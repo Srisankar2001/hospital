@@ -8,11 +8,22 @@ import { ViewDepartment } from './Components/Admin/ViewDepartment/ViewDepartment
 import { EditDepartment } from './Components/Admin/EditDepartment/EditDepartment';
 import { ViewDoctor } from './Components/Admin/ViewDoctor/ViewDoctor';
 import { EditDoctor } from './Components/Admin/EditDoctor/EditDoctor';
+import { Navbar } from './Components/Navbar/Navbar';
+import { Login } from './Components/Login/Login';
+import { Register } from './Components/Register/Register';
+
 
 function App() {
   return (
     <div className='app'>
+      <Navbar/>
       <Router>
+        <Routes>
+          <Route path='/login' element={<Login/>}/>
+          <Route path='/register' element={<Register/>}/>
+        </Routes>
+      </Router>
+      {/* <Router>
       <AdminNavbar/>
       <Routes>
         <Route path='/' element={<AdminDashboard/>}/>
@@ -23,7 +34,7 @@ function App() {
         <Route path='/viewDoctor' element={<ViewDoctor/>}/>
         <Route path='/editDoctor' element={<EditDoctor/>}/>
       </Routes>
-      </Router>
+      </Router> */}
     </div>
   );
 }
