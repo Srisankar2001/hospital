@@ -3,6 +3,6 @@ const {verifyAuth} = require("../Controller/AuthController")
 
 const router = express.Router()
 
-router.post("/",verifyAuth)
+router.get("/",verifyAuth)
 
 module.exports = router

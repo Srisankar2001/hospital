@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './Navbar.css';
 import logo from '../../Assets/logo.jpeg';
+import { AppContext } from '../../App';
+import { Link } from 'react-router-dom';
 
 export const Navbar = () => {
+    const {auth} = useContext(AppContext)
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleNavbar = () => {
@@ -14,27 +17,27 @@ export const Navbar = () => {
             <div className='navbar-header'>
                 <img src={logo} alt="Logo" className='navbar-logo' />
                 <ul className='navbar-link-full'>
-                    <li>Home<hr/></li>
+                    <li><Link to='/'>Home<hr/></Link></li>
                     <li>About<hr/></li>
-                    <li>Doctors<hr/></li>
+                    <li><Link to='/doctors'>Doctors<hr/></Link></li>
                     <li>Departments<hr/></li>
                     <li>Contact<hr/></li>
-                    <li><a href='/register'>Register<hr/></a></li>
+                    {(auth.isPatient || auth.isDoctor) ?  auth.isDoctor ? <li><Link to='#'>D appointments<hr/></Link></li> : <li><Link to='#'>P appointments<hr/></Link></li> : <li><Link to='/register'>Register<hr/></Link></li>}
                 </ul>
                 <div className='navbar-header-right'>
-                    <a href='/login' className='navbar-login'>Login</a>
+                    {(auth.isPatient || auth.isDoctor) ?  <Link to='/logout' className='navbar-login'>Logout</Link> : <Link to='/login' className='navbar-login'>Login</Link>}
                     <button onClick={toggleNavbar} className='navbar-toggle-button'>
                         ☰
                     </button>
                 </div>
             </div>
             <ul className={`navbar-link-half ${isOpen ? 'open':''}`}>
-                <li>Home</li>
+                <li><Link to='/'>Home<hr/></Link></li>
                 <li>About</li>
-                <li>Doctors</li>
+                <li><Link to='/doctors'>Doctors</Link></li>
                 <li>Departments</li>
                 <li>Contact</li>
-                <li><a href='/register'>Register</a></li>
+                <li><Link to='/register'>Register</Link></li>
             </ul>
         </div>
     );

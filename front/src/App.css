@@ -3,3 +3,7 @@
     flex-direction: column;
     line-height: 1.5;
 }
+.app-admin{
+    display: flex;
+    line-height: 1.5;
+}

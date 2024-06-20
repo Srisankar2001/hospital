@@ -59,7 +59,7 @@ export const AdminNavbar = () => {
                     {activeDropdown === 'doctors' && (
                         <ul className='admin-navbar-sub'>
                             <li className='admin-navbar-sub-list'><a href='/addDoctor'>Add Doctor</a></li>
-                            <li className='admin-navbar-sub-list'><a href='/viewDoctor'>View Doctors</a></li>
+                            <li className='admin-navbar-sub-list'><a href='/allDoctors'>All Doctors</a></li>
                         </ul>
                     )}
                 </li>
@@ -68,6 +68,14 @@ export const AdminNavbar = () => {
                         <div>
                             <img src={patient} alt="" />
                             <span>Patients</span>
+                        </div>
+                    </a>
+                </li>
+                <li className='admin-navbar-main-list'>
+                    <a href='/logout'>
+                        <div>
+                            <img src={patient} alt="" />
+                            <span>Logout</span>
                         </div>
                     </a>
                 </li>

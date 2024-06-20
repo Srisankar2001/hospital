@@ -2,7 +2,12 @@ import React, { useRef, useState } from 'react'
 import "./Register.css"
 import { validate } from '../../Functions/registerValidation'
 import image from "../../Assets/image.png"
+import { age } from '../../Functions/age'
+import { name } from '../../Functions/name'
+import axiosInstance from '../../Config/axiosConfig'
+import { useNavigate } from 'react-router-dom'
 export const Register = () => {
+  const navigate = useNavigate()
   const [input, setInput] = useState({
     name: "",
     dob: "",
@@ -11,7 +16,7 @@ export const Register = () => {
     address: "",
     email: "",
     password: "",
-    cpassword:"",
+    cpassword: "",
     image: null
   })
   const [error, setError] = useState({
@@ -22,7 +27,7 @@ export const Register = () => {
     address: "",
     email: "",
     password: "",
-    cpassword:"",
+    cpassword: "",
     image: ""
   })
   const imageInputRef = useRef(null)
@@ -66,7 +71,7 @@ export const Register = () => {
       address: "",
       email: "",
       password: "",
-      cpassword:"",
+      cpassword: "",
       image: null
     })
     setError({
@@ -77,7 +82,7 @@ export const Register = () => {
       address: "",
       email: "",
       password: "",
-      cpassword:"",
+      cpassword: "",
       image: ""
     })
   }
@@ -86,7 +91,38 @@ export const Register = () => {
     const errors = validate(input)
     setError(errors)
     if (Object.values(errors).every(item => item === "")) {
-      console.log(input)
+      const sendData = async () => {
+        try {
+          const config = {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          }
+          const data = {
+            name: name(input.name.trim()),
+            email: input.email.trim(),
+            password: input.password.trim(),
+            age: age(input.dob),
+            dob: input.dob,
+            gender: input.gender,
+            contactNumber: input.contactNumber.trim(),
+            address: input.address.trim(),
+            department: input.department,
+            image: input.image
+          }
+          const response = await axiosInstance.post("/patient/register", data, config)
+          console.log(response)
+          if (response.data.success) {
+            alert(response.data.message)
+            navigate("/")
+          } else {
+            alert(response.data.message)
+          }
+        } catch (error) {
+          alert(error.response?.data?.message || "Error Sending To Server")
+        }
+      }
+      sendData()
     }
   }
   return (

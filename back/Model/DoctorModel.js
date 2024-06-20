@@ -50,6 +50,10 @@ const doctorSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Appointment'
     }],
+    schedules: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Schedule'
+    }],
     createdAt: {
         type: Date,
         default: Date.now

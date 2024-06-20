@@ -1,0 +1,14 @@
+.doctor-doctor{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.doctor-doctor div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.doctor-doctor img{
+    height: 250px;
+    width: 250px;
+}

@@ -7,6 +7,7 @@ const router = express.Router()
 router.get("/getAll",doctorController.getAll)
 
 router.post("/get",doctorController.get)
+router.post("/getFull",doctorController.getFull)
 router.post("/register",upload.single("image"),doctorController.register)
 
 router.put("/updateWithImage",upload.single("image"),doctorController.updateWithImage)

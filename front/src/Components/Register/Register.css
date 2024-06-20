@@ -1,6 +1,6 @@
 .register{
     min-height: calc(100vh - 80px);
-    width: 100vw;
+    width: 100%;
     background-color: #E7F3ED;
     display: flex;
     align-items: center;
@@ -37,8 +37,22 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
+    margin-right: 20px;
 }
-.register-input label{
+.register-image{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    margin-right: 20px;
+}
+.register-image img{
+    height: 200px;
+    width: 200px;
+    cursor: pointer;
+    border:1px solid #ced4da;
+}
+.register-input label,
+.register-image label{
     font-weight: bold;
     font-size: 14px;
     margin-bottom: 2px;
@@ -49,7 +63,7 @@
     border-color: #E7F3ED;
     border: 1px solid #ced4da;
     border-radius: .25rem;
-    width: 400px;
+    width: 300px;
 }
 .register-input h6{
     color:red;
@@ -84,7 +98,7 @@
         padding: 15px 25px;
         margin: 20px 15px;
         border-radius: 2px;
-        min-width: 400px;
+        min-width: 300px;
         min-height: 220px;
     }
     .register-container h1{
@@ -92,11 +106,17 @@
         font-weight: 300;
         margin-bottom: 12px;
     }
+    .register-input-div{
+        display: flex;
+        flex-direction: column;
+    }
+    .register-input label,
     .register-input label{
         font-size: 12px;
     }
-    .register-input input{
-        width: 350px;
+    .register-input input,
+    .register-input select{
+        width: 300px;
     }
     .register-btn input{
         font-size: 13px;

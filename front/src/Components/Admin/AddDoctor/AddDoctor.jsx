@@ -127,7 +127,6 @@ export const AddDoctor = () => {
                         image: input.image
                     }
                     const response = await axiosInstance.post("/doctor/register",data,config)
-                    console.log(response)
                     if (response.data.success) {
                         alert(response.data.message)
                         handleClear()
@@ -169,7 +168,7 @@ export const AddDoctor = () => {
                         </div>
                         <div className='admin-addDoctor-input'>
                             <label>Gender</label>
-                            <select name='gender' onChange={handleChange}>
+                            <select name='gender' onChange={handleChange} value={input.gender}>
                                 <option value="">Select gender</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
@@ -179,7 +178,7 @@ export const AddDoctor = () => {
                         </div>
                         <div className='admin-addDoctor-input'>
                             <label>Department</label>
-                            <select name='department' onChange={handleChange}>
+                            <select name='department' onChange={handleChange} value={input.department}>
                                 <option value="">Select department</option>
                                 {renderDepartment()}
                             </select>
