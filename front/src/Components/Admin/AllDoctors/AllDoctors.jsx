@@ -37,55 +37,12 @@ export const AllDoctors = () => {
                     <td>{item.department.name}</td>
                     <td>
                         <button className='admin-allDoctors-edit' onClick={() => { navigate(`/viewDoctor`, { state: { _id: item._id } }) }}>View</button>
-                        {/* {item.user.active ?
-                            <button className='admin-allDoctors-block' onClick={()=>handleBlock(item.user._id)}>Block</button>
-                            :
-                            <button className='admin-allDoctors-unblock' onClick={()=>handleUnblock(item.user._id)}>Unblock</button>
-                        } */}
                     </td>
                 </tr>
             ))
         }
     }
 
-    // const handleBlock = (_id)=>{
-    //     const sendData = async() => {
-    //         try{
-    //             const data = {
-    //                 _id:_id
-    //             }
-    //             const response = await axiosInstance.put("/doctor/block",data)
-    //             if (response.data.success) {
-    //                 alert(response.data.message)
-    //                 window.location.reload()
-    //             } else {
-    //                 alert(response.data.message)
-    //             }
-    //         }catch(error){
-    //             alert(error.response?.data?.message || "Error Sending To Server")
-    //         }
-    //     }
-    //     sendData()
-    // }
-    // const handleUnblock = (_id)=>{
-    //     const sendData = async() => {
-    //         try{
-    //             const data = {
-    //                 _id:_id
-    //             }
-    //             const response = await axiosInstance.put("/doctor/unblock",data)
-    //             if (response.data.success) {
-    //                 alert(response.data.message)
-    //                 window.location.reload()
-    //             } else {
-    //                 alert(response.data.message)
-    //             }
-    //         }catch(error){
-    //             alert(error.response?.data?.message || "Error Sending To Server")
-    //         }
-    //     }
-    //     sendData()
-    // }
     return (
         <div className='admin-allDoctors'>
             <AdminTitle title="All Doctors" image={doctor} link=" / Doctors / All Doctors" />

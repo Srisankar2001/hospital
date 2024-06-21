@@ -92,9 +92,6 @@ export const EditDoctor = () => {
             }))
         }
     }
-    const handleClear = () => {
-        window.location.reload()
-    }
     const handleSubmit = (e) => {
         e.preventDefault()
         const errors = validate(input)
@@ -184,7 +181,7 @@ export const EditDoctor = () => {
                     </div>
                     <div className='admin-editDoctor-btn'>
                         <button onClick={handleSubmit}>Update</button>
-                        <button onClick={handleClear}>Clear</button>
+                        <button onClick={() => { navigate(`/viewDoctor`, { state: { _id: _id } }) }}>Cancel</button>
                     </div>
                 </form>
             </div>

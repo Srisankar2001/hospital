@@ -17,6 +17,8 @@ import { Home } from './Components/Home/Home';
 import { Logout } from './Components/Logout/Logout';
 import { Doctors } from './Components/Doctors/Doctors';
 import { ViewDoctor } from './Components/Admin/ViewDoctor/ViewDoctor';
+import { Schedule } from './Components/Admin/Schedule/Schedule';
+import { PatientAppiontment } from './Components/PatientAppointment/PatientAppiontment';
 
 export const AppContext = createContext(null);
 
@@ -66,6 +68,8 @@ function App() {
                 <Route path="/register" element={<Register />} />
                 <Route path="/" element={<Home />} />
                 <Route path="/doctors" element={<Doctors />} />
+
+                {auth.isPatient && <Route path="/appointment" element={<PatientAppiontment/>}/>}
               </>
             }
 
@@ -80,6 +84,7 @@ function App() {
                 <Route path="/allDoctors" element={<AllDoctors />} />
                 <Route path="/viewDoctor" element={<ViewDoctor />} />
                 <Route path="/editDoctor" element={<EditDoctor />} />
+                <Route path="/schedule" element={<Schedule />} />
               </>
             }
 

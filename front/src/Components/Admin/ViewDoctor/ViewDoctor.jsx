@@ -16,7 +16,6 @@ export const ViewDoctor = () => {
         navigate("/allDoctors")
     }
     const [data, setData] = useState({
-        id: "",
         name: "",
         dob: "",
         age: "",
@@ -25,51 +24,53 @@ export const ViewDoctor = () => {
         address: "",
         department: "",
         image: "",
-        active: ""
+        active: "",
+        user: ""
     })
     const [schedule, setSchedule] = useState([])
     const [appointment, setAppointment] = useState([])
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = {
-                    _id: _id
-                }
-                const response = await axiosInstance.post("/doctor/getFull", data)
-                console.log(response)
-                if (response.data.success) {
-                    setData({
-                        id: response.data.data.id,
-                        name: response.data.data.name,
-                        age: response.data.data.age,
-                        dob: response.data.data.dob.split('T')[0],
-                        gender: response.data.data.gender,
-                        contactNumber: response.data.data.contactNumber,
-                        address: response.data.data.address,
-                        department: response.data.data.department.name,
-                        image: response.data.data.image,
-                        active: response.data.data.user.active
-                    })
-                    setAppointment(response.data.data.appointments)
-                    setSchedule(response.data.data.schedules)
-                } else {
-                    alert(response.data.message)
-                    navigate("/allDoctors")
-                }
-            } catch (error) {
-                console.log(error)
-                alert(error.response?.data?.message || "Error Fetching Data")
+        fetchData()
+    }, [_id,navigate,data.active])
+
+    const fetchData = async () => {
+        try {
+            const data = {
+                _id: _id
+            }
+            const response = await axiosInstance.post("/doctor/getFull", data)
+            console.log(response.data)
+            if (response.data.success) {
+                setData({
+                    name: response.data.data.name,
+                    age: response.data.data.age,
+                    dob: response.data.data.dob.split('T')[0],
+                    gender: response.data.data.gender,
+                    contactNumber: response.data.data.contactNumber,
+                    address: response.data.data.address,
+                    department: response.data.data.department.name,
+                    image: response.data.data.image,
+                    active: response.data.data.user.active,
+                    user: response.data.data.user._id
+                })
+                setAppointment(response.data.data.appointments)
+                setSchedule(response.data.data.schedules)
+            } else {
+                alert(response.data.message)
                 navigate("/allDoctors")
             }
+        } catch (error) {
+            console.log(error)
+            alert(error.response?.data?.message || "Error Fetching Data")
+            navigate("/allDoctors")
         }
-        fetchData()
-    }, [navigate])
-
+    }
+    
     const renderSchedule = () => {
         if (schedule.length === 0) {
             return (<tr><td colSpan="4">No Schedule Available</td></tr>)
         } else {
-            schedule.map((item, index) => (
+            return schedule.map((item, index) => (
                 <tr key={index}>
                     <td>{item.day}</td>
                     <td>{item.startTime}</td>
@@ -83,7 +84,7 @@ export const ViewDoctor = () => {
         if (appointment.length === 0) {
             return (<tr><td colSpan="4">No Activity Available</td></tr>)
         } else {
-            appointment.map((item, index) => {
+            return appointment.map((item, index) => {
                 <tr key={index}>
                     <td>{item.patient.name}</td>
                     <td>{item.date}</td>
@@ -93,6 +94,44 @@ export const ViewDoctor = () => {
             })
         }
     }
+    const handleBlock = (id)=>{
+        const sendData = async() => {
+            try{
+                const data = {
+                    _id:id
+                }
+                const response = await axiosInstance.put("/doctor/block",data)
+                if (response.data.success) {
+                    alert(response.data.message)
+                    fetchData()
+                } else {
+                    alert(response.data.message)
+                }
+            }catch(error){
+                alert(error.response?.data?.message || "Error Sending To Server")
+            }
+        }
+        sendData()
+    }
+    const handleUnblock = (id)=>{
+        const sendData = async() => {
+            try{
+                const data = {
+                    _id:id
+                }
+                const response = await axiosInstance.put("/doctor/unblock",data)
+                if (response.data.success) {
+                    alert(response.data.message)
+                    fetchData()
+                } else {
+                    alert(response.data.message)
+                }
+            }catch(error){
+                alert(error.response?.data?.message || "Error Sending To Server")
+            }
+        }
+        sendData()
+    }
     return (
         <div className='admin-viewDoctor'>
             <AdminTitle title="View Doctor" image={doctor} link=" / Doctors / View Doctor" />
@@ -101,11 +140,11 @@ export const ViewDoctor = () => {
                     <h1>Doctor Details</h1>
                     <div className='admin-viewDoctor-details-div'>
                         <div className='admin-viewDoctor-details-profile'>
-                            <img src={`http://localhost:3001/images/${data.image}`} alt="" />
+                            <img src={`http://localhost:3001/images/${data.image}`} alt="" className='admin-viewDoctor-image' />
                             <div>
-                                <button className='admin-viewDoctor-edit'><img src={edit} alt="" className='admin-viewDoctor-icon'/>Edit Details</button>
-                                {data.active ? <button className='admin-viewDoctor-block'><img src={lock} alt="" className='admin-viewDoctor-icon'/>Block</button> : <button className='admin-viewDoctor-unblock'><img src={unlock} alt="" className='admin-viewDoctor-icon'/>Unblock</button>}
-                                <button className='admin-viewDoctor-scheduleEdit'><img src={scheduleEdit} alt="" className='admin-viewDoctor-icon'/>Edit Schedule</button>
+                                <button className='admin-viewDoctor-edit' onClick={() => { navigate(`/editDoctor`, { state: { _id: _id } }) }}><img src={edit} alt="" className='admin-viewDoctor-icon'/>Edit Details</button>
+                                {data.active ? <button className='admin-viewDoctor-block' onClick={()=>handleBlock(data.user)}><img src={lock} alt="" className='admin-viewDoctor-icon' />Block</button> : <button className='admin-viewDoctor-unblock' onClick={()=>handleUnblock(data.user)}><img src={unlock} alt="" className='admin-viewDoctor-icon' />Unblock</button>}
+                                <button className='admin-viewDoctor-scheduleEdit' onClick={() => { navigate(`/schedule`, { state: { _id: _id } }) }}><img src={scheduleEdit} alt="" className='admin-viewDoctor-icon' />Edit Schedule</button>
                             </div>
                         </div>
                         <div className='admin-viewDoctor-details-table'>

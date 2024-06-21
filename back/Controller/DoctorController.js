@@ -141,6 +141,19 @@ const getAll = async (req, res) => {
     }
 }
 
+const getAllFull = async (req, res) => {
+    try {
+        const doctors = await Doctor.find({})
+            .populate('department', 'name')
+            .populate('user', 'active')
+            .populate('appointments')
+            .populate('schedules')
+        return res.status(200).json({ success: true, data: doctors })
+    } catch (error) {
+        return res.status(500).json({ success: false, message: "Internal Server Error" })
+    }
+}
+
 const get = async (req, res) => {
     const { _id } = req.body
 
@@ -182,13 +195,7 @@ const getFull = async (req, res) => {
     try {
         const doctor = await Doctor.findById(id)
             .populate('department', 'name')
-            .populate({
-                path: 'appointments',
-                populate: {
-                    path: 'patient',
-                    select: 'id name'
-                }
-            })
+            .populate('appointments')
             .populate('schedules')
             .populate('user', 'active')
 
@@ -197,7 +204,7 @@ const getFull = async (req, res) => {
         }
         return res.status(200).json({ success: true, data: doctor })
     } catch (error) {
-        return res.status(500).json({ success: false, message: "Internal Server Error"})
+        return res.status(500).json({ success: false, message: "Internal Server Error" })
     }
 }
 
@@ -267,8 +274,6 @@ const unblock = async (req, res) => {
     }
 }
 
-
-
 const doctorController = {
     register,
     updateWithImage,
@@ -276,6 +281,7 @@ const doctorController = {
     get,
     getFull,
     getAll,
+    getAllFull,
     block,
     unblock
 }

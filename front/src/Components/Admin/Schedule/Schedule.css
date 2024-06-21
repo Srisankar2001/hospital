@@ -1,0 +1,78 @@
+.admin-schedule {
+    min-height: 100%;
+    width: 100vw;
+    background-color: #E7F3ED;
+    color: #3e5569;
+}
+
+.admin-schedule-container {
+    padding: 10px 15px;
+    margin: 20px 15px;
+    background-color: #fff;
+    border-radius: 2px;
+}
+
+.admin-schedule-container h1 {
+    color: #E57498;
+    font-size: 22px;
+    padding-bottom: .5rem;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eeeeee;
+}
+.admin-schedule-input-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.admin-schedule-day-div{
+    display:flex;
+}
+.admin-schedule-day {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.admin-schedule-day h3{
+    margin-top: 20px;
+}
+
+.admin-schedule-input {
+    display: flex;
+}
+
+.admin-schedule-input div .admin-schedule-input-time{
+    display: flex;
+    flex-direction: row;
+}
+.admin-schedule-input div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px 20px;
+}
+
+.admin-schedule-input label {
+    width: 100px; /* Adjust width as needed */
+}
+
+.admin-schedule-input input {
+    flex: 1; 
+    padding: 5px; 
+    width: 150px;
+}
+.admin-schedule-btn button{
+    background-color: #E57498;
+    border: 1px solid #fff;
+    color: #fff;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 10px 20px;
+    border-radius: 0.3rem;
+    margin: 0px 20px;
+}
+.admin-schedule-error{
+    color: red;
+}

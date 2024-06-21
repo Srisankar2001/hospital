@@ -5,6 +5,7 @@ const {doctorController} = require("../Controller/DoctorController")
 const router = express.Router()
 
 router.get("/getAll",doctorController.getAll)
+router.get("/getAllFull",doctorController.getAllFull)
 
 router.post("/get",doctorController.get)
 router.post("/getFull",doctorController.getFull)

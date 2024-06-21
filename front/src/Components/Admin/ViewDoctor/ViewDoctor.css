@@ -22,16 +22,32 @@
 .admin-viewDoctor-details-div{
     display:flex;
     flex-direction:row;
+    justify-content: space-between;
+}
+.admin-viewDoctor-details-profile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 40px;
 }
 .admin-viewDoctor-details-profile img{
     height: 250px;
     width: 250px;
 }
+.admin-viewDoctor-details-profile .admin-viewDoctor-image{
+    margin-bottom: 10px;
+}
 .admin-viewDoctor-details-profile .admin-viewDoctor-icon{
+    padding-right: 2px;
     height: 24px;
     width: 24px;
 }
+.admin-viewDoctor-details-profile div{
+    display: flex;
+}
 .admin-viewDoctor-details-profile .admin-viewDoctor-edit{
+    display: flex;
+    align-items: center;
     font-size: 15px;
     font-weight: 400;
     color : white;
@@ -43,6 +59,8 @@
     cursor: pointer;
 }
 .admin-viewDoctor-details-profile .admin-viewDoctor-block{
+    display: flex;
+    align-items: center;
     font-size: 15px;
     font-weight: 400;
     color : white;
@@ -54,6 +72,8 @@
     cursor: pointer;
 }
 .admin-viewDoctor-details-profile .admin-viewDoctor-unblock{
+    display: flex;
+    align-items: center;
     font-size: 15px;
     font-weight: 400;
     color : white;
@@ -65,6 +85,8 @@
     cursor: pointer;
 }
 .admin-viewDoctor-details-profile .admin-viewDoctor-scheduleEdit{
+    display: flex;
+    align-items: center;
     font-size: 15px;
     font-weight: 400;
     color : white;
@@ -74,4 +96,61 @@
     padding: 6px 12px;
     margin: 0px 8px;
     cursor: pointer;
+}
+.admin-viewDoctor-details-table{
+    margin: 20px 40px;
+    font-size: 14px;
+    padding-right: 200px;
+    width: 100%;
+}
+.admin-viewDoctor-details-table table {
+    display: table;
+    border-collapse: collapse;
+    width: 100%;
+    border: 2px solid; 
+}
+
+.admin-viewDoctor-details-table th,
+.admin-viewDoctor-details-table td {
+    border: 2px solid; 
+    padding: 10px 20px; 
+    text-align: left;
+    width: auto; 
+    box-sizing: border-box; 
+}
+
+.admin-viewDoctor-schedule table {
+    display: table;
+    border-collapse: collapse;
+    width: 90%;
+    border: 2px solid; 
+    margin: 20px 40px;
+    font-size: 14px;;
+}
+
+.admin-viewDoctor-schedule th,
+.admin-viewDoctor-schedule td {
+    border: 2px solid; 
+    padding: 10px 20px; 
+    text-align: center;
+    width: auto; 
+    box-sizing: border-box; 
+}
+
+.admin-viewDoctor-activity table {
+    display: table;
+    border-collapse: collapse;
+    width: 90%;
+    border: 2px solid; 
+    margin: 20px 40px;
+    font-size: 14px;
+}
+
+.admin-viewDoctor-activity th,
+.admin-viewDoctor-activity td {
+    border: 2px solid; 
+    padding: 10px 20px; 
+    text-align: center;
+    width: auto; 
+    box-sizing: border-box; 
 }
