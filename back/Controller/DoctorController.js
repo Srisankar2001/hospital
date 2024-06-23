@@ -141,18 +141,18 @@ const getAll = async (req, res) => {
     }
 }
 
-const getAllFull = async (req, res) => {
-    try {
-        const doctors = await Doctor.find({})
-            .populate('department', 'name')
-            .populate('user', 'active')
-            .populate('appointments')
-            .populate('schedules')
-        return res.status(200).json({ success: true, data: doctors })
-    } catch (error) {
-        return res.status(500).json({ success: false, message: "Internal Server Error" })
-    }
-}
+// const getAllFull = async (req, res) => {
+//     try {
+//         const doctors = await Doctor.find({})
+//             .populate('department', 'name')
+//             .populate('user', 'active')
+//             .populate('appointments')
+//             .populate('schedule')
+//         return res.status(200).json({ success: true, data: doctors })
+//     } catch (error) {
+//         return res.status(500).json({ success: false, message: "Internal Server Error" })
+//     }
+// }
 
 const get = async (req, res) => {
     const { _id } = req.body
@@ -196,7 +196,7 @@ const getFull = async (req, res) => {
         const doctor = await Doctor.findById(id)
             .populate('department', 'name')
             .populate('appointments')
-            .populate('schedules')
+            .populate('schedule')
             .populate('user', 'active')
 
         if (!doctor) {
@@ -281,7 +281,7 @@ const doctorController = {
     get,
     getFull,
     getAll,
-    getAllFull,
+    // getAllFull,
     block,
     unblock
 }

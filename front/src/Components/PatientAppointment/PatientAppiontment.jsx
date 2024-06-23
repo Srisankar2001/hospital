@@ -1,14 +1,18 @@
-import React, { useContext, useEffect, useState, useMemo } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import "./PatientAppiontment.css"
 import { AppContext } from '../../App'
 import axiosInstance from '../../Config/axiosConfig'
 import { useNavigate } from 'react-router-dom'
+import { dateArray } from '../../Functions/dateArray'
+import { getDayOfWeek } from '../../Functions/getDayOfWeek'
 
 export const PatientAppiontment = () => {
     const navigate = useNavigate()
     const { user } = useContext(AppContext)
     const [department, setDepartment] = useState([])
     const [doctor, setDoctor] = useState([])
+    const [schedule, setSchedule] = useState({})
+    const [appointment, setAppointment] = useState([])
     const [input, setInput] = useState({
         department: "",
         doctor: "",
@@ -31,7 +35,7 @@ export const PatientAppiontment = () => {
         }
         const fetchDoctor = async () => {
             try {
-                const response = await axiosInstance.get("/doctor/getAllFull")
+                const response = await axiosInstance.get("/doctor/getAll")
                 if (response.data.success) {
                     setDoctor(response.data.data)
                 } else {
@@ -43,9 +47,13 @@ export const PatientAppiontment = () => {
         }
         fetchDepartment()
         fetchDoctor()
-    }, [])
+    }, [navigate])
 
-    const renderDepartment = useMemo(() => {
+    const renderDepartment = () => {
+        if (!department) {
+            return <option value="">Loading...</option>;
+        }
+    
         if (department.length === 0) {
             return <option value="">No department available</option>
         } else {
@@ -53,113 +61,122 @@ export const PatientAppiontment = () => {
                 <option key={index} value={item._id}>{item.name}</option>
             ))
         }
-    }, [department])
+    }
 
-    const renderDoctor = useMemo(() => {
-        const filteredDoctors = input.department !== "" 
-            ? doctor.filter(item => item.department._id === input.department && item.user.active) 
-            : doctor.filter(item => item.user.active)
-
-        if (filteredDoctors.length === 0) {
+    const renderDoctor = () => {
+        if (!doctor) {
+            return <option value="">Loading...</option>;
+        }    
+        const filterDoctor = input.department !== ""
+            ? doctor.filter(item => item.department._id === input.department && item.user.active)
+            :
+            doctor.filter(item => item.user.active)
+        if (filterDoctor.length === 0) {
             return <option value="">No doctor available</option>
         } else {
-            return filteredDoctors.map((item, index) => (
+            return filterDoctor.map((item, index) => (
                 <option key={index} value={item._id}>{item.name}</option>
             ))
         }
-    }, [doctor, input.department])
+    }
 
-    const dateArray = useMemo(() => {
-        const today = new Date();
-        const dates = [];
-
-        for (let i = 0; i < 5; i++) {
-            const date = new Date(today);
-            date.setDate(today.getDate() + i);
-
-            const formattedDate = date.toISOString().split('T')[0];
-            dates.push({
-                value: formattedDate,
-                date: formattedDate === new Date().toISOString().split('T')[0] ? 'Today' : formattedDate
-            });
-        }
-
-        return dates
-    }, [])
-
-    const renderDate = useMemo(() => {
-        return dateArray.map((item, index) => (
-            <option value={item.value} key={index}>{item.date}</option>
+    const renderDate = () => {
+        const dates = dateArray()
+        return dates.map((item, index) => (
+            <option value={item} key={index}>{item}</option>
         ))
-    }, [dateArray])
-
-    const getDayOfWeek = (dateString) => {
-        const date = new Date(dateString);
-        const dayOfWeek = date.getDay();
-        const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        return weekdays[dayOfWeek];
-    };
-
-    const renderSchedule = useMemo(() => {
-        if (input.doctor !== "" && input.date !== "") {
-            const selectedDoctor = doctor.find(item => item._id === input.doctor);
-            if (selectedDoctor) {
-                const dayOfWeek = getDayOfWeek(input.date);
-                const scheduleForDay = selectedDoctor.schedules.find(item => item.day === dayOfWeek);
-                if (scheduleForDay) {
-                    const appointmentsForDay = selectedDoctor.appointments.filter(item => item.date === input.date);
-                    const timeSlots = [];
-                    let [startHour, startMinute] = scheduleForDay.startTime.split(':').map(Number);
-                    const [endHour, endMinute] = scheduleForDay.endTime.split(':').map(Number);
-                    const interval = scheduleForDay.interval;
-
-                    while (startHour < endHour || (startHour === endHour && startMinute <= endMinute)) {
-                        const formattedTime = `${startHour.toString().padStart(2, '0')}:${startMinute.toString().padStart(2, '0')}`;
-                        const isBooked = appointmentsForDay.some(appointment => appointment.time === formattedTime);
-
-                        timeSlots.push(
-                            <div key={formattedTime} className='time-slot'>
-                                <button
-                                    onClick={() => setInput(prev => ({ ...prev, time: formattedTime }))}
-                                    disabled={isBooked}
-                                    className={isBooked ? 'booked' : 'available'}
-                                >
-                                    {formattedTime}
-                                </button>
-                            </div>
-                        );
-
-                        startMinute += interval;
-                        if (startMinute >= 60) {
-                            startMinute -= 60;
-                            startHour += 1;
-                        }
-                    }
-
-                    return (
-                        <div className='schedule'>
-                            <h2>Schedule for {selectedDoctor.name} on {input.date}</h2>
-                            <div className='time-slots'>
-                                {timeSlots.length > 0 ? timeSlots : <span>No available time slots for this day</span>}
-                            </div>
-                        </div>
-                    );
-                } else {
-                    return <span>No schedule found for this day</span>;
-                }
-            } else {
-                return <span>No doctor found</span>;
-            }
-        } else {
-            return <span>Select a doctor and date</span>;
-        }
-    }, [doctor, input.date, input.doctor])
+    }
 
     const handleChange = (e) => {
         setInput(prev => ({
             ...prev,
             [e.target.name]: e.target.value
         }))
+    }
+
+    const handelSearch = () => {
+        if (input.doctor !== "" && input.department !== "") {
+            const fetchDoctorFull = async () => {
+                try {
+                    const data = {
+                        _id: input.doctor
+                    }
+                    const response = await axiosInstance.post("/doctor/getFull", data)
+                    if (response.data.success) {
+                        setSchedule(response.data.data.schedule)
+                        setAppointment(response.data.data.appiontments)
+                    } else {
+                        alert(response.data.message)
+                    }
+                } catch (error) {
+                    alert(error.response?.data?.message || "Error Fetching Data")
+                }
+            }
+            fetchDoctorFull()
+        }
+    }
+
+    const handelClear = () => {
+        setInput({
+            department: "",
+            doctor: "",
+            date: "",
+            time: ""
+        })
+        setSchedule(null)
+        setAppointment(null)
+    }
+    const renderSchedule = () => {
+        if (input.date && schedule !== null) {
+            const weekDay = getDayOfWeek(input.date);
+            const daySchedule = schedule[weekDay];
+
+            if (!daySchedule || daySchedule.endTime === "00:00") {
+                return <span>No Schedule available this day</span>;
+            }
+
+            const startTime = daySchedule.startTime;
+            const endTime = daySchedule.endTime;
+            const intervalTime = daySchedule.intervalTime;
+
+            const appointments = appointment.filter(item => item.date === input.date).map(item => item.time)
+
+            const timeSlots = [];
+            let [startHour, startMinute] = startTime.split(':').map(Number);
+            const [endHour, endMinute] = endTime.split(':').map(Number);
+
+            while (startHour < endHour || (startHour === endHour && startMinute < endMinute)) {
+                const formattedTime = `${startHour.toString().padStart(2, '0')}:${startMinute.toString().padStart(2, '0')}`;
+                const isBooked = appointments.includes(formattedTime);
+
+                timeSlots.push(
+                    <input
+                        key={formattedTime}
+                        type="button"
+                        value={formattedTime}
+                        className={isBooked ? 'patientAppointment-btn-booked' : 'patientAppointment-btn-available'}
+                        onClick={isBooked ? null : () => setInput(prev => ({ ...prev, time: formattedTime }))}
+                    />
+                );
+
+                startMinute += intervalTime;
+                if (startMinute >= 60) {
+                    startMinute -= 60;
+                    startHour += 1;
+                }
+            }
+
+            return (
+                <div className='patientAppointment-time-slots'>
+                    {timeSlots.length > 0 ? timeSlots : <span>No available time slots for this day</span>}
+                </div>
+            );
+
+        } else {
+            return null
+        }
+
+
     }
 
     return (
@@ -171,26 +188,30 @@ export const PatientAppiontment = () => {
                         <label>Department</label>
                         <select name="department" value={input.department} onChange={handleChange}>
                             <option value="">Select Department</option>
-                            {renderDepartment}
+                            {renderDepartment()}
                         </select>
                     </div>
                     <div className='patientAppiontment-input'>
                         <label>Doctor</label>
                         <select name="doctor" value={input.doctor} onChange={handleChange}>
                             <option value="">Select Doctor</option>
-                            {renderDoctor}
+                            {renderDoctor()}
                         </select>
                     </div>
                     <div className='patientAppiontment-input'>
                         <label>Date</label>
                         <select name="date" value={input.date} onChange={handleChange}>
                             <option value="">Select Date</option>
-                            {renderDate}
+                            {renderDate()}
                         </select>
+                    </div>
+                    <div className='patientAppiontment-btn'>
+                        <input type='button' value="Search" onClick={handelSearch} />
+                        <input type='reset' value="Clear" onClick={handelClear} />
                     </div>
                     <div className='patientAppiontment-time'>
                         <h3>Available Time</h3>
-                        {renderSchedule}
+                        {renderSchedule()}
                     </div>
                 </div>
             </form>

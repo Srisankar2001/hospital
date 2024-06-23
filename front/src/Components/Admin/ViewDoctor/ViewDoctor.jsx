@@ -8,6 +8,7 @@ import edit from "../../../Assets/edit.png"
 import lock from "../../../Assets/lock.png"
 import unlock from "../../../Assets/unlock.png"
 import scheduleEdit from "../../../Assets/schedule.png"
+
 export const ViewDoctor = () => {
     const navigate = useNavigate()
     const location = useLocation()
@@ -16,6 +17,7 @@ export const ViewDoctor = () => {
         navigate("/allDoctors")
     }
     const [data, setData] = useState({
+        id: "",
         name: "",
         dob: "",
         age: "",
@@ -25,9 +27,9 @@ export const ViewDoctor = () => {
         department: "",
         image: "",
         active: "",
-        user: ""
+        user: "",
+        schedule: ""
     })
-    const [schedule, setSchedule] = useState([])
     const [appointment, setAppointment] = useState([])
     useEffect(() => {
         fetchData()
@@ -39,9 +41,9 @@ export const ViewDoctor = () => {
                 _id: _id
             }
             const response = await axiosInstance.post("/doctor/getFull", data)
-            console.log(response.data)
             if (response.data.success) {
                 setData({
+                    id: response.data.data.id,
                     name: response.data.data.name,
                     age: response.data.data.age,
                     dob: response.data.data.dob.split('T')[0],
@@ -51,31 +53,32 @@ export const ViewDoctor = () => {
                     department: response.data.data.department.name,
                     image: response.data.data.image,
                     active: response.data.data.user.active,
-                    user: response.data.data.user._id
+                    user: response.data.data.user._id,
+                    schedule : response.data.data.schedule
                 })
                 setAppointment(response.data.data.appointments)
-                setSchedule(response.data.data.schedules)
             } else {
                 alert(response.data.message)
                 navigate("/allDoctors")
             }
         } catch (error) {
-            console.log(error)
             alert(error.response?.data?.message || "Error Fetching Data")
             navigate("/allDoctors")
         }
     }
     
     const renderSchedule = () => {
-        if (schedule.length === 0) {
+        const findSchedule = Object.keys(data.schedule).filter(key => ["monday","tuesday","wednesday","thursday","friday","saturday","sunday"].includes(key)).map(key => ({day:key, ...data.schedule[key]}))
+        const availableSchedule = findSchedule.filter(item => item.endTime !== "00:00")
+        if (availableSchedule.length === 0) {
             return (<tr><td colSpan="4">No Schedule Available</td></tr>)
         } else {
-            return schedule.map((item, index) => (
+            return availableSchedule.map((item, index) => (
                 <tr key={index}>
                     <td>{item.day}</td>
                     <td>{item.startTime}</td>
                     <td>{item.endTime}</td>
-                    <td>{item.timeInterval}</td>
+                    <td>{item.intervalTime}</td>
                 </tr>
             ))
         }

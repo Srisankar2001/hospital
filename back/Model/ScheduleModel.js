@@ -6,44 +6,42 @@ const scheduleSchema = new mongoose.Schema({
         ref: 'Doctor',
         required: true
     },
-    day: {
-        type: String,
-        enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-        required: true
+    monday: {
+        startTime: { type: String, required: false, default: "00:00" },
+        endTime: { type: String, required: false, default: "00:00" },
+        intervalTime: { type: Number, required: false, default: 0 }
     },
-    startTime: {
-        type: String,
-        required: true,
-        validate: {
-            validator: function(v) {
-                return /\b([01]?[0-9]|2[0-3]):[0-5][0-9]\b/.test(v);
-            },
-            message: props => `${props.value} is not a valid time format (HH:MM)!`
-        }
+    tuesday: {
+        startTime: { type: String, required: false, default: "00:00" },
+        endTime: { type: String, required: false, default: "00:00" },
+        intervalTime: { type: Number, required: false, default: 0 }
     },
-    endTime: {
-        type: String,
-        required: true,
-        validate: {
-            validator: function(v) {
-                return /\b([01]?[0-9]|2[0-3]):[0-5][0-9]\b/.test(v);
-            },
-            message: props => `${props.value} is not a valid time format (HH:MM)!`
-        }
+    wednesday: {
+        startTime: { type: String, required: false, default: "00:00" },
+        endTime: { type: String, required: false, default: "00:00" },
+        intervalTime: { type: Number, required: false, default: 0 }
     },
-    timeInterval: {
-        type: Number,
-        required: true,
-        validate: {
-            validator: function(v) {
-                return Number.isInteger(v) && v > 0;
-            },
-            message: props => `${props.value} must be a positive integer!`
-        }
+    thursday: {
+        startTime: { type: String, required: false, default: "00:00" },
+        endTime: { type: String, required: false, default: "00:00" },
+        intervalTime: { type: Number, required: false, default: 0 }
+    },
+    friday: {
+        startTime: { type: String, required: false, default: "00:00" },
+        endTime: { type: String, required: false, default: "00:00" },
+        intervalTime: { type: Number, required: false, default:0 }
+    },
+    saturday: {
+        startTime: { type: String, required: false, default: "00:00" },
+        endTime: { type: String, required: false, default: "00:00" },
+        intervalTime: { type: Number, required: false, default: 0 }
+    },
+    sunday: {
+        startTime: { type: String, required: false, default: "00:00" },
+        endTime: { type: String, required: false, default: "00:00" },
+        intervalTime: { type: Number, required: false, default: 0 }
     }
-});
-
-scheduleSchema.index({ doctor: 1, day: 1 }, { unique: true });
+}, { timestamps: true });
 
 const Schedule = mongoose.model("Schedule", scheduleSchema);
 

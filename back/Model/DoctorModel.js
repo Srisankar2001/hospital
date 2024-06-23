@@ -1,24 +1,24 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 const Department = require("./DepartmentModel");
-
+const Schedule = require("./ScheduleModel");
 
 const doctorSchema = new mongoose.Schema({
-    id : {
-        type : String,
-        required : true,
-        unique : true
+    id: {
+        type: String,
+        required: true,
+        unique: true
     },
-    name : {
-        type : String,
-        required : true
+    name: {
+        type: String,
+        required: true
     },
     age: {
         type: Number,
         required: true
     },
-    dob:{
+    dob: {
         type: Date,
-        required : true
+        required: true
     },
     gender: {
         type: String,
@@ -50,26 +50,36 @@ const doctorSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Appointment'
     }],
-    schedules: [{
+    schedule: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Schedule'
-    }],
+    },
     createdAt: {
         type: Date,
         default: Date.now
     },
-    image : {
-        type : String
+    image: {
+        type: String
     }
-})
-
-doctorSchema.post('save', async function (doc) {
-    const department = await Department.findById(doc.department).exec();
-    department.doctors.push(doc._id);
-    await department.save();
 });
 
+doctorSchema.post('save', async function (doc) {
+    try {
+        if (doc.department) {
+            const department = await Department.findById(doc.department).exec();
+            department.doctors.push(doc._id);
+            await department.save();
+        }
 
-const Doctor = mongoose.model("Doctor", doctorSchema)
+        const schedule = new Schedule({ doctor: doc._id });
+        const savedSchedule = await schedule.save();
 
-module.exports = Doctor
+        await Doctor.findByIdAndUpdate(doc._id, { schedule: savedSchedule._id });
+    } catch (error) {
+        console.error('Error in post save hook: ', error);
+    }
+});
+
+const Doctor = mongoose.model("Doctor", doctorSchema);
+
+module.exports = Doctor;
