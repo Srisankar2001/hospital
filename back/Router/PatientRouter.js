@@ -7,6 +7,7 @@ const router = express.Router()
 router.get("/getAll",patientController.getAll)
 
 router.post("/get",patientController.get)
+router.post("/getByUserId",patientController.getByUserId)
 router.post("/register",upload.single("image"),patientController.register)
 
 router.put("/block",patientController.block)

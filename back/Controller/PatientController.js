@@ -92,7 +92,25 @@ const get = async(req,res)=>{
         if(!patient){
             return res.status(400).json({ success: false, message: "Patient not found" })
         }
-        return res.status(400).json({ success: true, message: patient })
+        return res.status(400).json({ success: true, data: patient })
+    }catch(error){
+        return res.status(500).json({ success: false, message: "Internal Server Error" })
+    }
+}
+
+const getByUserId = async(req,res)=>{
+    const {id} = req.body
+
+    if(!id){
+        return res.status(400).json({ success: false, message: "Input necessary data" })
+    }
+
+    try{
+        const patient = await Patient.findOne({id:id})
+        if(!patient){
+            return res.status(400).json({ success: false, message: "Patient not found" })
+        }
+        return res.status(200).json({ success: true, data: patient })
     }catch(error){
         return res.status(500).json({ success: false, message: "Internal Server Error" })
     }
@@ -169,6 +187,7 @@ const unblock = async(req,res)=>{
 const patientController = {
     register,
     get,
+    getByUserId,
     getAll,
     block,
     unblock

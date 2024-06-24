@@ -18,7 +18,7 @@ import { Logout } from './Components/Logout/Logout';
 import { Doctors } from './Components/Doctors/Doctors';
 import { ViewDoctor } from './Components/Admin/ViewDoctor/ViewDoctor';
 import { Schedule } from './Components/Admin/Schedule/Schedule';
-import { PatientAppiontment } from './Components/PatientAppointment/PatientAppiontment';
+import { PatientAppointment } from './Components/PatientAppointment/PatientAppointment';
 
 export const AppContext = createContext(null);
 
@@ -69,7 +69,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/doctors" element={<Doctors />} />
 
-                {auth.isPatient && <Route path="/appointment" element={<PatientAppiontment/>}/>}
+                {auth.isPatient && <Route path="/appointment" element={<PatientAppointment/>}/>}
               </>
             }
 

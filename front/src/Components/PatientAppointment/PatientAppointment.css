@@ -1,0 +1,89 @@
+.patientAppointment{
+    min-height: 100%;
+    min-width: 100vw;
+    background-color: #E7F3ED;
+}
+.patientAppointment-container{
+    padding: 10px 15px;
+    margin: 20px 15px;
+    background-color: #fff;
+    border-radius: 2px;
+}
+.patientAppointment-container h1{
+    color: #E57498;
+    font-size: 22px;
+    padding-bottom: .5rem;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eeeeee;
+}
+.patientAppointment-container form{
+    display: flex;
+    flex-direction: column;
+    color:#3e5569;
+}
+.patientAppointment-input{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+.patientAppointment-input label{
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+.patientAppointment-input input,
+.patientAppointment-input select{
+    padding: .5rem .75rem;
+    border-color: #E7F3ED;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    width: 65%;
+}
+.patientAppointment-btn{
+    display: flex;
+    flex-direction: row;
+    row-gap: 100px;
+}
+.patientAppointment-btn button{
+    background-color: #E57498;
+    border: 1px solid #fff;
+    color: #fff;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 10px 20px;
+    border-radius: 0.3rem;
+}
+.patientAppointment-time-slots{
+    margin-bottom: 10px;
+}
+.patientAppointment-btn-booked{
+    background-color: red;
+    color: #fff;
+    border: 1px solid #fff;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 10px 20px;
+    border-radius: 0.3rem;
+}
+.patientAppointment-btn-available{
+    background-color: green;
+    color: #fff;
+    border: 1px solid #fff;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 10px 20px;
+    border-radius: 0.3rem;
+}
+.patientAppointment-btn-selected{
+    background-color: blue;
+    color: #fff;
+    border: 1px solid #fff;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 10px 20px;
+    border-radius: 0.3rem;
+}
