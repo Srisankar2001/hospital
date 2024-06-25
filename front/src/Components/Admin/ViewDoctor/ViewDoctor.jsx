@@ -33,7 +33,7 @@ export const ViewDoctor = () => {
     const [appointment, setAppointment] = useState([])
     useEffect(() => {
         fetchData()
-    }, [_id,navigate,data.active])
+    }, [_id, navigate, data.active])
 
     const fetchData = async () => {
         try {
@@ -54,7 +54,7 @@ export const ViewDoctor = () => {
                     image: response.data.data.image,
                     active: response.data.data.user.active,
                     user: response.data.data.user._id,
-                    schedule : response.data.data.schedule
+                    schedule: response.data.data.schedule
                 })
                 setAppointment(response.data.data.appointments)
             } else {
@@ -66,9 +66,9 @@ export const ViewDoctor = () => {
             navigate("/allDoctors")
         }
     }
-    
+
     const renderSchedule = () => {
-        const findSchedule = Object.keys(data.schedule).filter(key => ["monday","tuesday","wednesday","thursday","friday","saturday","sunday"].includes(key)).map(key => ({day:key, ...data.schedule[key]}))
+        const findSchedule = Object.keys(data.schedule).filter(key => ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"].includes(key)).map(key => ({ day: key, ...data.schedule[key] }))
         const availableSchedule = findSchedule.filter(item => item.endTime !== "00:00")
         if (availableSchedule.length === 0) {
             return (<tr><td colSpan="4">No Schedule Available</td></tr>)
@@ -88,48 +88,51 @@ export const ViewDoctor = () => {
             return (<tr><td colSpan="4">No Activity Available</td></tr>)
         } else {
             return appointment.map((item, index) => {
-                <tr key={index}>
-                    <td>{item.patient.name}</td>
-                    <td>{item.date}</td>
-                    <td>{item.time}</td>
-                    <td>{item.status}</td>
-                </tr>
+                let status = item.status;
+                return (
+                    <tr key={index}>
+                        <td>{item.patient.name}</td>
+                        <td>{item.date.split('T')[0]}</td>
+                        <td>{item.time}</td>
+                        <td><span className={status==="scheduled" ? "admin-viewDoctor-status-scheduled":status==="completed" ? "admin-viewDoctor-status-completed" :status==="cancelled" ? "admin-viewDoctor-status-cancelled" : "admin-viewDoctor-status-not"}>{status}</span></td>
+                    </tr>
+                )
             })
         }
     }
-    const handleBlock = (id)=>{
-        const sendData = async() => {
-            try{
+    const handleBlock = (id) => {
+        const sendData = async () => {
+            try {
                 const data = {
-                    _id:id
+                    _id: id
                 }
-                const response = await axiosInstance.put("/doctor/block",data)
+                const response = await axiosInstance.put("/doctor/block", data)
                 if (response.data.success) {
                     alert(response.data.message)
                     fetchData()
                 } else {
                     alert(response.data.message)
                 }
-            }catch(error){
+            } catch (error) {
                 alert(error.response?.data?.message || "Error Sending To Server")
             }
         }
         sendData()
     }
-    const handleUnblock = (id)=>{
-        const sendData = async() => {
-            try{
+    const handleUnblock = (id) => {
+        const sendData = async () => {
+            try {
                 const data = {
-                    _id:id
+                    _id: id
                 }
-                const response = await axiosInstance.put("/doctor/unblock",data)
+                const response = await axiosInstance.put("/doctor/unblock", data)
                 if (response.data.success) {
                     alert(response.data.message)
                     fetchData()
                 } else {
                     alert(response.data.message)
                 }
-            }catch(error){
+            } catch (error) {
                 alert(error.response?.data?.message || "Error Sending To Server")
             }
         }
@@ -145,8 +148,8 @@ export const ViewDoctor = () => {
                         <div className='admin-viewDoctor-details-profile'>
                             <img src={`http://localhost:3001/images/${data.image}`} alt="" className='admin-viewDoctor-image' />
                             <div>
-                                <button className='admin-viewDoctor-edit' onClick={() => { navigate(`/editDoctor`, { state: { _id: _id } }) }}><img src={edit} alt="" className='admin-viewDoctor-icon'/>Edit Details</button>
-                                {data.active ? <button className='admin-viewDoctor-block' onClick={()=>handleBlock(data.user)}><img src={lock} alt="" className='admin-viewDoctor-icon' />Block</button> : <button className='admin-viewDoctor-unblock' onClick={()=>handleUnblock(data.user)}><img src={unlock} alt="" className='admin-viewDoctor-icon' />Unblock</button>}
+                                <button className='admin-viewDoctor-edit' onClick={() => { navigate(`/editDoctor`, { state: { _id: _id } }) }}><img src={edit} alt="" className='admin-viewDoctor-icon' />Edit Details</button>
+                                {data.active ? <button className='admin-viewDoctor-block' onClick={() => handleBlock(data.user)}><img src={lock} alt="" className='admin-viewDoctor-icon' />Block</button> : <button className='admin-viewDoctor-unblock' onClick={() => handleUnblock(data.user)}><img src={unlock} alt="" className='admin-viewDoctor-icon' />Unblock</button>}
                                 <button className='admin-viewDoctor-scheduleEdit' onClick={() => { navigate(`/schedule`, { state: { _id: _id } }) }}><img src={scheduleEdit} alt="" className='admin-viewDoctor-icon' />Edit Schedule</button>
                             </div>
                         </div>
@@ -192,7 +195,7 @@ export const ViewDoctor = () => {
                                 <th>Day</th>
                                 <th>Start Time</th>
                                 <th>End Time</th>
-                                <th>Interval</th>
+                                <th>Interval (mins)</th>
                             </tr>
                         </thead>
                         <tbody>

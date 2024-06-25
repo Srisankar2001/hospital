@@ -154,3 +154,19 @@
     width: auto; 
     box-sizing: border-box; 
 }
+
+.admin-viewDoctor-status-scheduled{
+    background-color: #ffc107;
+    color: #fff;
+    padding: 2px 5px;
+}
+.admin-viewDoctor-status-cancelled{
+    background-color: #dc3545;
+    color: #fff;
+    padding: 2px 5px;
+}
+.admin-viewDoctor-status-completed{
+    background-color:  #157347;
+    color: #fff;
+    padding: 2px 5px;
+}

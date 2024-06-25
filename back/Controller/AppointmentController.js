@@ -108,8 +108,18 @@ const complete = async (req, res) => {
         return res.status(500).json({ success: false, message: "Internal Server Error" });
     }
 };
+
+const getAll = async (req, res) => {
+    try {
+        const appointments = await Appointment.find({}).populate('doctor', 'id name').populate('patient', 'id name')
+        return res.status(200).json({ success: true, data: appointments })
+    } catch (error) {
+        return res.status(500).json({ success: false, message: "Internal Server Error" })
+    }
+}
+
 const appointmentController = {
-   create,cancel,complete
+   create,cancel,complete,getAll
 }
 
 module.exports = { appointmentController }

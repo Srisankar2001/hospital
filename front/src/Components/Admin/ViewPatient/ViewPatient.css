@@ -19,73 +19,125 @@
     margin-bottom: 15px;
     border-bottom: 1px solid #eeeeee;
 }
-.admin-viewPatient-container img{
-    height: 150px;
-    width: 150px;
+.admin-viewPatient-details-div{
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
 }
-.admin-viewPatient-container table{
-    padding: 10px 20px;
-    width:100%;
-    display: table;
-}
-.admin-viewPatient-container table tr{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-}
-.admin-viewPatient-container table tr th{
-    font-size: 18px;
-    font-weight: 400;
-    border: 1px solid #dee2e6;
-}
-.admin-viewPatient-container table tr td{
-    font-size: 15px;
-    font-weight: 200;
-    border: 1px solid #dee2e6;
+.admin-viewPatient-details-profile{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 10px 0px;
+    margin: 20px 40px;
 }
-.admin-viewPatient-container table tr td button{
-    margin: 5px;
+.admin-viewPatient-details-profile img{
+    height: 250px;
+    width: 250px;
 }
-.admin-viewPatient-container table tr td .admin-viewPatient-edit{
-    color: #fff;
+.admin-viewPatient-details-profile .admin-viewPatient-image{
+    margin-bottom: 10px;
+}
+.admin-viewPatient-details-profile .admin-viewPatient-icon{
+    padding-right: 2px;
+    height: 24px;
+    width: 24px;
+}
+.admin-viewPatient-details-profile div{
+    display: flex;
+}
+.admin-viewPatient-details-profile .admin-viewPatient-edit{
+    display: flex;
+    align-items: center;
     font-size: 15px;
     font-weight: 400;
-    background-color: #198754;
-    border: 1px solid #198754;
-    padding: 10px 30px;
+    color : white;
+    background-color: #28a745;
+    border:none;
+    width: 120px;
     border-radius: 5px;
+    padding: 6px 12px;
+    margin: 0px 8px;
+    cursor: pointer;
 }
-.admin-viewPatient-container table tr td .admin-viewPatient-edit:hover{
-    background-color: #157347;
-    border: 1px solid #146c43;
-}
-.admin-viewPatient-container table tr td .admin-viewPatient-unblock{
-    color: #fff;
+.admin-viewPatient-details-profile .admin-viewPatient-block{
+    display: flex;
+    align-items: center;
     font-size: 15px;
     font-weight: 400;
-    background-color: #ffc107;
-    border: 1px solid #ffc107;
-    padding: 10px 30px;
-    border-radius: 5px;
-}
-.admin-viewPatient-container table tr td .admin-viewPatient-unblock:hover{
-    background-color: #ffca2c;
-    border: 1px solid  #ffc720;
-}
-.admin-viewPatient-container table tr td .admin-viewPatient-block{
-    color: #fff;
-    font-size: 15px;
-    font-weight: 400;
+    color : white;
     background-color: #dc3545;
-    border: 1px solid #dc3545;
-    padding: 10px 30px;
+    border:none;
     border-radius: 5px;
+    padding: 6px 12px;
+    margin: 0px 8px;
+    cursor: pointer;
 }
-.admin-viewPatient-container table tr td .admin-viewPatient-block:hover{
-    background-color: #bb2d3b;
-    border: 1px solid #b02a37;
+.admin-viewPatient-details-profile .admin-viewPatient-unblock{
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 400;
+    color : white;
+    background-color: #FFAA2A;
+    border:none;
+    border-radius: 5px;
+    padding: 6px 12px;
+    margin: 0px 8px;
+    cursor: pointer;
+}
+
+.admin-viewPatient-details-table{
+    margin: 20px 40px;
+    font-size: 14px;
+    padding-right: 200px;
+    width: 100%;
+}
+.admin-viewPatient-details-table table {
+    display: table;
+    border-collapse: collapse;
+    width: 100%;
+    border: 2px solid; 
+}
+
+.admin-viewPatient-details-table th,
+.admin-viewPatient-details-table td {
+    border: 2px solid; 
+    padding: 10px 20px; 
+    text-align: left;
+    width: auto; 
+    box-sizing: border-box; 
+}
+
+.admin-viewPatient-activity table {
+    display: table;
+    border-collapse: collapse;
+    width: 90%;
+    border: 2px solid; 
+    margin: 20px 40px;
+    font-size: 14px;
+}
+
+.admin-viewPatient-activity th,
+.admin-viewPatient-activity td {
+    border: 2px solid; 
+    padding: 10px 20px; 
+    text-align: center;
+    width: auto; 
+    box-sizing: border-box; 
+}
+
+.admin-viewPatient-status-scheduled{
+    background-color: #ffc107;
+    color: #fff;
+    padding: 2px 5px;
+}
+.admin-viewPatient-status-cancelled{
+    background-color: #dc3545;
+    color: #fff;
+    padding: 2px 5px;
+}
+.admin-viewPatient-status-completed{
+    background-color:  #157347;
+    color: #fff;
+    padding: 2px 5px;
 }

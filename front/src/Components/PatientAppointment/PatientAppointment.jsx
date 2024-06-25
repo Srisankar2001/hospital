@@ -178,7 +178,7 @@ export const PatientAppointment = () => {
                         type="button"
                         value={formattedTime}
                         className={isBooked ? 'patientAppointment-btn-booked' : isSelected ? 'patientAppointment-btn-selected' : 'patientAppointment-btn-available'}
-                        onClick={isBooked ? null : () => setInput(prev => ({ ...prev, time: formattedTime }))}
+                        onClick={isBooked ? null : () => setInput(prev => ({ ...prev, time : isSelected ? "" : formattedTime }))}
                     />
                 );
 

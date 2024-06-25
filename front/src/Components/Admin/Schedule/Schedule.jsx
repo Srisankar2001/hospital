@@ -44,7 +44,7 @@ export const Schedule = () => {
                 if (response.data.success) {
                     const fetchedSchedule = response.data.data[0];
                     setInput({
-                        monday: fetchedSchedule.monday ? fetchedSchedule.monday :  { startTime: "00:00", endTime: "00:00", intervalTime: 0 },
+                        monday: fetchedSchedule.monday ? fetchedSchedule.monday : { startTime: "00:00", endTime: "00:00", intervalTime: 0 },
                         tuesday: fetchedSchedule.tuesday ? fetchedSchedule.tuesday : { startTime: "00:00", endTime: "00:00", intervalTime: 0 },
                         wednesday: fetchedSchedule.wednesday ? fetchedSchedule.wednesday : { startTime: "00:00", endTime: "00:00", intervalTime: 0 },
                         thursday: fetchedSchedule.thursday ? fetchedSchedule.thursday : { startTime: "00:00", endTime: "00:00", intervalTime: 0 },
@@ -94,39 +94,41 @@ export const Schedule = () => {
 
     return (
         <div className='admin-schedule'>
-            <AdminTitle title="View Doctor" image={doctor} link=" / Doctors / Edit Schedule" />
+            <AdminTitle title="Edit Schedule" image={doctor} link=" / Doctors / Edit Schedule" />
             <div className='admin-schedule-container'>
                 <h1>Edit Schedule</h1>
                 <div className='admin-schedule-input-div'>
                     {Object.keys(input).map(day => (
                         <div className='admin-schedule-day' key={day}>
-                            <div className='admin-schedule-day-div'>
-                                <h3>{day.charAt(0).toUpperCase() + day.slice(1)}</h3>
-                                <div className='admin-schedule-input'>
-                                    <div>
-                                        <label>Start Time</label>
-                                        <select value={input[day].startTime} onChange={(e) => handleChange(day, 'startTime', e.target.value)}>
-                                            {hours.map(hour => mins.map(min => (
-                                                <option key={`${hour}:${min}`} value={`${hour}:${min}`}>{`${hour}:${min}`}</option>
-                                            )))}
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label>End Time</label>
-                                        <select value={input[day].endTime} onChange={(e) => handleChange(day, 'endTime', e.target.value)}>
-                                            {hours.map(hour => mins.map(min => (
-                                                <option key={`${hour}:${min}`} value={`${hour}:${min}`}>{`${hour}:${min}`}</option>
-                                            )))}
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label>Time Interval (minutes)</label>
-                                        <input
-                                            type="number"
-                                            min="0"
-                                            value={input[day].intervalTime}
-                                            onChange={(e) => handleChange(day, 'intervalTime', e.target.value)}
-                                        />
+                            <div className='admin-schedule-day-div-total'>
+                                <div className='admin-schedule-day-div'>
+                                    <h3>{day.charAt(0).toUpperCase() + day.slice(1)}</h3>
+                                    <div className='admin-schedule-input'>
+                                        <div>
+                                            <label>Start Time</label>
+                                            <select value={input[day].startTime} onChange={(e) => handleChange(day, 'startTime', e.target.value)}>
+                                                {hours.map(hour => mins.map(min => (
+                                                    <option key={`${hour}:${min}`} value={`${hour}:${min}`}>{`${hour}:${min}`}</option>
+                                                )))}
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label>End Time</label>
+                                            <select value={input[day].endTime} onChange={(e) => handleChange(day, 'endTime', e.target.value)}>
+                                                {hours.map(hour => mins.map(min => (
+                                                    <option key={`${hour}:${min}`} value={`${hour}:${min}`}>{`${hour}:${min}`}</option>
+                                                )))}
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label>Time Interval (minutes)</label>
+                                            <input
+                                                type="number"
+                                                min="0"
+                                                value={input[day].intervalTime}
+                                                onChange={(e) => handleChange(day, 'intervalTime', e.target.value)}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                                 {error[day] && <div className="admin-schedule-error">{error[day]}</div>}

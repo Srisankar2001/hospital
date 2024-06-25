@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AddDepartment } from './Components/Admin/AddDepartment/AddDepartment';
 import { AddDoctor } from './Components/Admin/AddDoctor/AddDoctor';
 import { AdminDashboard } from './Components/Admin/Dashboard/AdminDashboard';
@@ -19,6 +19,12 @@ import { Doctors } from './Components/Doctors/Doctors';
 import { ViewDoctor } from './Components/Admin/ViewDoctor/ViewDoctor';
 import { Schedule } from './Components/Admin/Schedule/Schedule';
 import { PatientAppointment } from './Components/PatientAppointment/PatientAppointment';
+import { AllPatients } from './Components/Admin/AllPatients/AllPatients';
+import { ViewPatient } from './Components/Admin/ViewPatient/ViewPatient';
+import { EditPatient } from './Components/Admin/EditPatient/EditPatient';
+import { AllAppointments } from './Components/Admin/Appointments/AllAppointments';
+import { AddAdmin } from './Components/Admin/AddAdmin/AddAdmin';
+import { AllAdmins } from './Components/Admin/AllAdmins/AllAdmins';
 
 export const AppContext = createContext(null);
 
@@ -55,7 +61,7 @@ function App() {
       }
     };
     fetchdata();
-  },[]);
+  },[user]);
   return (
     <div className={auth.isAdmin ? 'app-admin' : 'app'}>
       <AppContext.Provider value={{ user, auth }}>
@@ -77,14 +83,26 @@ function App() {
             {auth.isAdmin &&
               <>
                 <Route path="/" element={<AdminDashboard />} />
+
+                <Route path="/allAppointments" element={<AllAppointments />} />
+
+
+                <Route path="/addAdmin" element={<AddAdmin />} />
+                <Route path="/allAdmins" element={<AllAdmins />} />
+
                 <Route path="/addDepartment" element={<AddDepartment />} />
                 <Route path="/viewDepartment" element={<ViewDepartment />} />
                 <Route path="/editDepartment" element={<EditDepartment />} />
+
                 <Route path="/addDoctor" element={<AddDoctor />} />
                 <Route path="/allDoctors" element={<AllDoctors />} />
                 <Route path="/viewDoctor" element={<ViewDoctor />} />
                 <Route path="/editDoctor" element={<EditDoctor />} />
                 <Route path="/schedule" element={<Schedule />} />
+
+                <Route path='/allPatients' element={<AllPatients/>} />
+                <Route path='/viewPatient' element={<ViewPatient/>} />
+                <Route path='/editPatient' element={<EditPatient/>} />
               </>
             }
 

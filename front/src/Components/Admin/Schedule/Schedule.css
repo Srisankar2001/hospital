@@ -25,6 +25,11 @@
     align-items: center;
     justify-content: center;
 }
+.admin-schedule-day-div-total{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
 .admin-schedule-day-div{
     display:flex;
 }
@@ -54,13 +59,16 @@
 }
 
 .admin-schedule-input label {
-    width: 100px; /* Adjust width as needed */
+    display: flex;
 }
 
-.admin-schedule-input input {
+.admin-schedule-input input{
     flex: 1; 
-    padding: 5px; 
-    width: 150px;
+    padding: 2px; 
+    width: 100px;
+}
+.admin-schedule-input select {
+    width: 100px;
 }
 .admin-schedule-btn button{
     background-color: #E57498;

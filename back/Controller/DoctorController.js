@@ -195,7 +195,7 @@ const getFull = async (req, res) => {
     try {
         const doctor = await Doctor.findById(id)
             .populate('department', 'name')
-            .populate('appointments')
+            .populate({path:'appointments',populate:{path:'patient'}})
             .populate('schedule')
             .populate('user', 'active')
 

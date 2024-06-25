@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt")
 const mongoose = require("mongoose")
 const User = require("../Model/UserModel")
 const Patient = require("../Model/PatientModel")
-const {generateId} = require("../Function/IDgenerator")
+const { generateId } = require("../Function/IDgenerator")
 
 const register = async (req, res) => {
     const { name, age, dob, gender, contactNumber, address, email, password } = req.body
@@ -25,26 +25,26 @@ const register = async (req, res) => {
             return res.status(500).json({ success: false, message: "Error in hashing password" })
         }
 
-      
+
         const id = await generateId('patient')
 
-        if(!id){
+        if (!id) {
             return res.status(500).json({ success: false, message: "Error in DB" })
         }
 
         const patientUser = new User({
-            id:id,
-            name : name,
-            email:email,
-            password:hash,
-            role:'PATIENT'
+            id: id,
+            name: name,
+            email: email,
+            password: hash,
+            role: 'PATIENT'
         })
 
         const savedPatientUser = await patientUser.save()
 
         const patient = new Patient({
-            id:savedPatientUser.id,
-            user:savedPatientUser._id,
+            id: savedPatientUser.id,
+            user: savedPatientUser._id,
             name: name,
             age: age,
             dob: dob,
@@ -61,23 +61,78 @@ const register = async (req, res) => {
         }
         return res.status(400).json({ success: false, message: "Patient creation failed" })
     } catch (error) {
-        return res.status(500).json({ success: false, message: "Internal Server Error"})
-    }
-}
-
-const getAll = async(req,res)=>{
-    try{
-        const patients = await Patient.find({})
-        return res.status(200).json({success:true,data:patients})
-    }catch(error){
         return res.status(500).json({ success: false, message: "Internal Server Error" })
     }
 }
 
-const get = async(req,res)=>{
-    const {_id} = req.body
+const updateWithoutImage = async (req, res) => {
+    const { _id, name, age, dob, gender, contactNumber, address } = req.body
 
-    if(!_id){
+    if (!_id || !name || !age || !dob || !gender || !contactNumber || !address) {
+        return res.status(400).json({ success: false, message: "Input all necessary data" })
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(_id)) {
+        return res.status(400).json({ success: false, message: "Invalid patient ID" });
+    }
+
+    const id = new mongoose.Types.ObjectId(_id)
+
+    try {
+        const patient = await Patient.findOneAndUpdate({ _id: id }, { name: name, age: age, dob: dob, gender: gender, contactNumber: contactNumber, address: address })
+
+        const savedPatient = await patient.save()
+
+        if (savedPatient) {
+            return res.status(200).json({ success: true, message: "Patient updated successfully" })
+        }
+        return res.status(400).json({ success: false, message: "Patient update failed" })
+    } catch (error) {
+        return res.status(500).json({ success: false, message: "Internal Server Error" })
+    }
+}
+
+const updateWithImage = async (req, res) => {
+    const { _id, name, age, dob, gender, contactNumber, address } = req.body
+    const image = req.file.filename
+
+    if (!_id || !name || !age || !dob || !gender || !contactNumber || !address || !image) {
+        return res.status(400).json({ success: false, message: "Input all necessary data" })
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(_id)) {
+        return res.status(400).json({ success: false, message: "Invalid doctor ID" });
+    }
+
+    const id = new mongoose.Types.ObjectId(_id)
+
+    try {
+        const patient = await Patient.findOneAndUpdate({ _id: id }, { name: name, age: age, dob: dob, gender: gender, contactNumber: contactNumber, address: address, image: image })
+
+        const savedPatient = await patient.save()
+
+        if (savedPatient) {
+            return res.status(200).json({ success: true, message: "Patient updated successfully" })
+        }
+        return res.status(400).json({ success: false, message: "Patient update failed" })
+    } catch (error) {
+        return res.status(500).json({ success: false, message: "Internal Server Error" })
+    }
+}
+
+const getAll = async (req, res) => {
+    try {
+        const patients = await Patient.find({}).populate('appointments')
+        return res.status(200).json({ success: true, data: patients })
+    } catch (error) {
+        return res.status(500).json({ success: false, message: "Internal Server Error" })
+    }
+}
+
+const get = async (req, res) => {
+    const { _id } = req.body
+
+    if (!_id) {
         return res.status(400).json({ success: false, message: "Input necessary data" })
     }
 
@@ -87,45 +142,71 @@ const get = async(req,res)=>{
 
     const id = new mongoose.Types.ObjectId(_id)
 
-    try{
+    try {
         const patient = await Patient.findById(id)
-        if(!patient){
-            return res.status(400).json({ success: false, message: "Patient not found" })
-        }
-        return res.status(400).json({ success: true, data: patient })
-    }catch(error){
-        return res.status(500).json({ success: false, message: "Internal Server Error" })
-    }
-}
-
-const getByUserId = async(req,res)=>{
-    const {id} = req.body
-
-    if(!id){
-        return res.status(400).json({ success: false, message: "Input necessary data" })
-    }
-
-    try{
-        const patient = await Patient.findOne({id:id})
-        if(!patient){
+        if (!patient) {
             return res.status(400).json({ success: false, message: "Patient not found" })
         }
         return res.status(200).json({ success: true, data: patient })
-    }catch(error){
+    } catch (error) {
         return res.status(500).json({ success: false, message: "Internal Server Error" })
     }
 }
 
-const block = async(req,res)=>{
-    const {_id} = req.body
-    if(!_id){
+const getFull = async (req, res) => {
+    const { _id } = req.body
+
+    if (!_id) {
+        return res.status(400).json({ success: false, message: "Input necessary data" })
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(_id)) {
+        return res.status(400).json({ success: false, message: "Invalid patient ID" });
+    }
+
+    const id = new mongoose.Types.ObjectId(_id)
+
+    try {
+        const patient = await Patient.findById(id)
+            .populate({ path: 'appointments', populate: { path: 'doctor' } })
+            .populate('user', 'active')
+        if (!patient) {
+            return res.status(400).json({ success: false, message: "Patient not found" })
+        }
+        return res.status(200).json({ success: true, data: patient })
+    } catch (error) {
+        return res.status(500).json({ success: false, message: "Internal Server Error" })
+    }
+}
+
+const getByUserId = async (req, res) => {
+    const { id } = req.body
+
+    if (!id) {
+        return res.status(400).json({ success: false, message: "Input necessary data" })
+    }
+
+    try {
+        const patient = await Patient.findOne({ id: id })
+        if (!patient) {
+            return res.status(400).json({ success: false, message: "Patient not found" })
+        }
+        return res.status(200).json({ success: true, data: patient })
+    } catch (error) {
+        return res.status(500).json({ success: false, message: "Internal Server Error" })
+    }
+}
+
+const block = async (req, res) => {
+    const { _id } = req.body
+    if (!_id) {
         return res.status(400).json({ success: false, message: "Input necessary data" })
     }
     if (!mongoose.Types.ObjectId.isValid(_id)) {
         return res.status(400).json({ success: false, message: "Invalid patient ID" });
     }
     const id = new mongoose.Types.ObjectId(_id)
-    try{
+    try {
         const user = await User.findById(id);
 
         if (!user) {
@@ -144,21 +225,21 @@ const block = async(req,res)=>{
             return res.status(400).json({ success: false, message: "Patient block failed" });
         }
         return res.status(200).json({ success: true, message: "Patient blocked successfully" });
-    }catch(error){
+    } catch (error) {
         return res.status(500).json({ success: false, message: "Internal Server Error" })
     }
 }
 
-const unblock = async(req,res)=>{
-    const {_id} = req.body
-    if(!_id){
+const unblock = async (req, res) => {
+    const { _id } = req.body
+    if (!_id) {
         return res.status(400).json({ success: false, message: "Input necessary data" })
     }
     if (!mongoose.Types.ObjectId.isValid(_id)) {
         return res.status(400).json({ success: false, message: "Invalid doctor ID" });
     }
     const id = new mongoose.Types.ObjectId(_id)
-    try{
+    try {
         const user = await User.findById(id);
 
         if (!user) {
@@ -177,7 +258,7 @@ const unblock = async(req,res)=>{
             return res.status(400).json({ success: false, message: "Patient unblock failed" });
         }
         return res.status(200).json({ success: true, message: "Patient unblocked successfully" });
-    }catch(error){
+    } catch (error) {
         return res.status(500).json({ success: false, message: "Internal Server Error" })
     }
 }
@@ -186,11 +267,14 @@ const unblock = async(req,res)=>{
 
 const patientController = {
     register,
+    updateWithImage,
+    updateWithoutImage,
     get,
+    getFull,
     getByUserId,
     getAll,
     block,
     unblock
 }
 
-module.exports = {patientController}
+module.exports = { patientController }
