@@ -14,6 +14,7 @@ export const PatientAppointment = () => {
     const [doctor, setDoctor] = useState([])
     const [schedule, setSchedule] = useState({})
     const [appointment, setAppointment] = useState([])
+    const [patientAppointment,setPatientAppointment] = useState([])
     const [showDateSelect, setShowDateSelect] = useState(false);
     const [input, setInput] = useState({
         department: "",
@@ -63,9 +64,27 @@ export const PatientAppointment = () => {
                  alert(error.response?.data?.message || "Error Fetching Data")
             }
         }
+        const fetchPatientFull = async () => {
+            try {
+                const data = {
+                    _id: patientId
+                }
+                const response = await axiosInstance.post("/patient/getFull", data)
+                console.log(response.data)
+                if (response.data.success) {
+                    setPatientAppointment(response.data.data.appointments)
+                } else {
+                    alert(response.data.message)
+                }
+            } catch (error) {
+                console.log(error)
+                 alert(error.response?.data?.message || "Error Fetching Data")
+            }
+        }
         fetchDepartment()
         fetchDoctor()
         fetchPatient()
+        fetchPatientFull()
     }, [])
 
     const renderDepartment = () => {

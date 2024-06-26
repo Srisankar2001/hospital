@@ -179,6 +179,24 @@ const get = async (req, res) => {
     }
 }
 
+const getByUserId = async (req, res) => {
+    const { id } = req.body
+
+    if (!id) {
+        return res.status(400).json({ success: false, message: "Input necessary data" })
+    }
+
+    try {
+        const doctor = await Doctor.findOne({ id: id }).populate({path:'appointments',populate:{path:'patient'}})
+        if (!doctor) {
+            return res.status(400).json({ success: false, message: "Doctor not found" })
+        }
+        return res.status(200).json({ success: true, data: doctor })
+    } catch (error) {
+        return res.status(500).json({ success: false, message: "Internal Server Error" })
+    }
+}
+
 const getFull = async (req, res) => {
     const { _id } = req.body
 
@@ -280,6 +298,7 @@ const doctorController = {
     updateWithoutImage,
     get,
     getFull,
+    getByUserId,
     getAll,
     // getAllFull,
     block,

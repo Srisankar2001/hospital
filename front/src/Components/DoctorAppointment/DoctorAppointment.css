@@ -1,0 +1,75 @@
+.doctorAppointment {
+    min-height: 100%;
+    width: 100vw;
+    background-color: #E7F3ED;
+    color: #3e5569;
+}
+
+.doctorAppointment-container {
+    padding: 10px 15px;
+    margin: 20px 15px;
+    background-color: #fff;
+    border-radius: 2px;
+}
+
+.doctorAppointment-container h1 {
+    color: #E57498;
+    font-size: 22px;
+    padding-bottom: .5rem;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eeeeee;
+}
+.doctorAppointment-activity table {
+    display: table;
+    border-collapse: collapse;
+    width: 50%;
+    border: 2px solid; 
+    margin: 20px 40px;
+    font-size: 14px;
+}
+
+.doctorAppointment-activity th,
+.doctorAppointment-activity td {
+    border: 2px solid; 
+    padding: 10px 20px; 
+    text-align: center;
+    width: auto; 
+    box-sizing: border-box; 
+}
+.doctorAppointment-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.doctorAppointment-btn-complete{
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 400;
+    color : white;
+    background-color: #28a745;
+    border:none;
+    border-radius: 5px;
+    padding: 6px 12px;
+    margin: 0px 8px;
+    cursor: pointer;
+}
+.doctorAppointment-btn-cancel{
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 400;
+    color : white;
+    background-color: #dc3545;
+    border:none;
+    border-radius: 5px;
+    padding: 6px 12px;
+    margin: 0px 8px;
+    cursor: pointer;
+}
+.doctorAppointment-span-complete{
+    color: #28a745;
+}
+.doctorAppointment-span-cancel{
+    color: #dc3545;
+}

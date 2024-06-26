@@ -65,15 +65,16 @@ const doctorSchema = new mongoose.Schema({
 
 doctorSchema.post('save', async function (doc) {
     try {
-        if (doc.department) {
-            const department = await Department.findById(doc.department).exec();
-            department.doctors.push(doc._id);
-            await department.save();
+        if (doc.isNew) {
+            if (doc.department) {
+                const department = await Department.findById(doc.department).exec();
+                department.doctors.push(doc._id);
+                await department.save();
+            }
         }
 
         const schedule = new Schedule({ doctor: doc._id });
         const savedSchedule = await schedule.save();
-
         await Doctor.findByIdAndUpdate(doc._id, { schedule: savedSchedule._id });
     } catch (error) {
         console.error('Error in post save hook: ', error);

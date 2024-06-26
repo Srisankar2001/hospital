@@ -8,6 +8,7 @@ router.get("/getAll",doctorController.getAll)
 // router.get("/getAllFull",doctorController.getAllFull)
 
 router.post("/get",doctorController.get)
+router.post("/getByUserId",doctorController.getByUserId)
 router.post("/getFull",doctorController.getFull)
 router.post("/register",upload.single("image"),doctorController.register)
 

@@ -22,7 +22,7 @@ export const Navbar = () => {
                     <li><Link to='/doctors'>Doctors<hr/></Link></li>
                     <li>Departments<hr/></li>
                     <li>Contact<hr/></li>
-                    {(auth.isPatient || auth.isDoctor) ?  auth.isDoctor ? <li><Link to='#'>Appointments<hr/></Link></li> : <li><Link to='/appointment'>Appointments<hr/></Link></li> : <li><Link to='/register'>Register<hr/></Link></li>}
+                    {(auth.isPatient || auth.isDoctor) ?  <li><Link to='/appointment'>Appointments<hr/></Link></li> : <li><Link to='/register'>Register<hr/></Link></li>}
                 </ul>
                 <div className='navbar-header-right'>
                     {(auth.isPatient || auth.isDoctor) ?  <Link to='/logout' className='navbar-login'>Logout</Link> : <Link to='/login' className='navbar-login'>Login</Link>}

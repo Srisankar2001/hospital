@@ -1,14 +1,133 @@
-.doctor-doctor{
+.doctor {
+    min-height: 100%;
+    width: 100vw;
+    background-color: #E7F3ED;
+    color: #3e5569;
+}
+
+.doctor-container {
+    padding: 10px 15px;
+    margin: 20px 15px;
+    background-color: #fff;
+    border-radius: 2px;
+}
+
+.doctor-container h1 {
+    color: #E57498;
+    font-size: 40px;
+    padding-bottom: .5rem;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.doctor-department h2 {
+    color: #E57498;
+    font-size: 30px;
+    padding-bottom: .5rem;
+    margin-bottom: 15px;
+}
+
+.doctor-doctor-div {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
 }
-.doctor-doctor div{
+
+.doctor-doctor {
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    margin-bottom: 20px;
+    font-size: 20px;
 }
-.doctor-doctor img{
+
+.doctor-doctor img {
     height: 250px;
     width: 250px;
+}
+
+.doctor-btn {
+    background-color: #E57498;
+    border: 1px solid #fff;
+    color: #fff;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 10px 20px;
+    border-radius: 0.3rem;
+}
+
+@media(max-width:1200px) {
+    .doctor-doctor-div {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media(max-width: 992px) {
+    .doctor-container h1 {
+        font-size: 35px;
+        margin-bottom: 12px;
+    }
+
+    .doctor-department h2 {
+        font-size: 25px;
+        margin-bottom: 12px;
+    }
+    .doctor-doctor {
+        margin-bottom: 15px;
+        font-size: 15px;
+    }
+    .doctor-doctor img {
+        height: 200px;
+        width: 200px;
+    }
+    .doctor-btn {
+        font-size: 14px;
+        font-weight: 300;
+    }
+}
+@media (max-width: 768px){
+    .doctor-doctor-div {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    .doctor-container h1 {
+        font-size: 30px;
+        margin-bottom: 12px;
+    }
+
+    .doctor-department h2 {
+        font-size: 20px;
+        margin-bottom: 12px;
+    }
+    .doctor-doctor {
+        margin-bottom: 12px;
+        font-size: 13px;
+    }
+    .doctor-doctor img {
+        height: 200px;
+        width: 200px;
+    }
+    .doctor-btn {
+        font-size: 14px;
+        font-weight: 300;
+    }
+}
+@media (max-width: 500px){
+    .doctor-doctor-div {
+        display: flex;
+        flex-direction: column;
+    }
+    .doctor-doctor img {
+        height: 250px;
+        width: 250px;
+    }
+    .doctor-doctor {
+        margin-bottom: 12px;
+        font-size: 15px;
+    }
+    .doctor-btn {
+        font-size: 15px;
+        font-weight: 300;
+    }
 }

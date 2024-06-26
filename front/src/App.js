@@ -25,6 +25,7 @@ import { EditPatient } from './Components/Admin/EditPatient/EditPatient';
 import { AllAppointments } from './Components/Admin/Appointments/AllAppointments';
 import { AddAdmin } from './Components/Admin/AddAdmin/AddAdmin';
 import { AllAdmins } from './Components/Admin/AllAdmins/AllAdmins';
+import { DoctorAppointment } from './Components/DoctorAppointment/DoctorAppointment';
 
 export const AppContext = createContext(null);
 
@@ -76,6 +77,8 @@ function App() {
                 <Route path="/doctors" element={<Doctors />} />
 
                 {auth.isPatient && <Route path="/appointment" element={<PatientAppointment/>}/>}
+
+                {auth.isDoctor && <Route path='/appointment' element={<DoctorAppointment/>}/>}
               </>
             }
 
