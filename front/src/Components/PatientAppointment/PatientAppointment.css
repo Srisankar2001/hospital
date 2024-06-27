@@ -9,14 +9,14 @@
     background-color: #fff;
     border-radius: 2px;
 }
-.patientAppointment-container h1{
+.patientAppointment-container-new h1{
     color: #E57498;
     font-size: 22px;
     padding-bottom: .5rem;
     margin-bottom: 15px;
     border-bottom: 1px solid #eeeeee;
 }
-.patientAppointment-container form{
+.patientAppointment-container-new form{
     display: flex;
     flex-direction: column;
     color:#3e5569;
@@ -86,4 +86,47 @@
     font-weight: 400;
     padding: 10px 20px;
     border-radius: 0.3rem;
+} 
+.patientAppointment-container-old h1{
+    color: #E57498;
+    font-size: 22px;
+    padding-bottom: .5rem;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eeeeee;
+}
+.patientAppointment-container-old table{
+    display: table;
+    border-collapse: collapse;
+    max-width: 600px;
+    border: 2px solid; 
+    margin: 20px 40px;
+    font-size: 14px;
+}
+.patientAppointment-container-old th,
+.patientAppointment-container-old td{
+    border: 2px solid; 
+    padding: 10px 20px; 
+    text-align: center;
+    width: auto; 
+    box-sizing: border-box; 
+}
+
+.patientAppointment-button-cancel{
+    align-self: center;
+    font-size: 15px;
+    font-weight: 400;
+    color : white;
+    background-color: #dc3545;
+    border:none;
+    border-radius: 5px;
+    padding: 6px 12px;
+    margin: 0px 8px;
+    cursor: pointer;
+}
+.patientAppointment-span-complete{
+    color: #28a745;
+}
+.patientAppointment-span-cancel{
+    color: #dc3545;
 }

@@ -187,7 +187,7 @@ const getByUserId = async (req, res) => {
     }
 
     try {
-        const patient = await Patient.findOne({ id: id })
+        const patient = await Patient.findOne({ id: id }).populate({ path: 'appointments', populate: { path: 'doctor' } })
         if (!patient) {
             return res.status(400).json({ success: false, message: "Patient not found" })
         }

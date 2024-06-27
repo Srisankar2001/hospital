@@ -27,19 +27,23 @@ export const Departments = () => {
             return <div>No doctor available to display</div>;
         } else {
             return department.map((item, index) => (
-                <div key={index}>
+                <div key={index} className='department-div'>
                     <img src={`http://localhost:3001/images/${item.image}`} alt="" />
-                    <span>{item.name}</span>
-                    <span>{item.description}</span>
+                    <div>
+                        <span>{item.name}</span>
+                        <span>{item.description}</span>
+                    </div>
                 </div>
             ));
         }
     };
 
     return (
-        <div className='doctor'>
-            <h1>Our Departments</h1>
-            {renderData()}
+        <div className='department'>
+            <div className='department-container'>
+                <h1>Our Departments</h1>
+                {renderData()}
+            </div>
         </div>
     )
 

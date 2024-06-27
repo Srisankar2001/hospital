@@ -9,12 +9,11 @@ import { getDayOfWeek } from '../../Functions/getDayOfWeek'
 export const PatientAppointment = () => {
     const navigate = useNavigate()
     const { user } = useContext(AppContext)
-    const [patientId, setPatientId] = useState(null)
+    const [patient, setPatient] = useState({ _id: "", appointments: [] })
     const [department, setDepartment] = useState([])
     const [doctor, setDoctor] = useState([])
-    const [schedule, setSchedule] = useState({})
     const [appointment, setAppointment] = useState([])
-    const [patientAppointment,setPatientAppointment] = useState([])
+    const [schedule, setSchedule] = useState({})
     const [showDateSelect, setShowDateSelect] = useState(false);
     const [input, setInput] = useState({
         department: "",
@@ -55,36 +54,17 @@ export const PatientAppointment = () => {
                 }
                 const response = await axiosInstance.post("/patient/getByUserId", data)
                 if (response.data.success) {
-                    setPatientId(response.data.data._id)
+                    setPatient({ _id: response.data.data._id, appointments: response.data.data.appointments })
                 } else {
                     alert(response.data.message)
                 }
             } catch (error) {
-                console.log(error)
-                 alert(error.response?.data?.message || "Error Fetching Data")
-            }
-        }
-        const fetchPatientFull = async () => {
-            try {
-                const data = {
-                    _id: patientId
-                }
-                const response = await axiosInstance.post("/patient/getFull", data)
-                console.log(response.data)
-                if (response.data.success) {
-                    setPatientAppointment(response.data.data.appointments)
-                } else {
-                    alert(response.data.message)
-                }
-            } catch (error) {
-                console.log(error)
-                 alert(error.response?.data?.message || "Error Fetching Data")
+                alert(error.response?.data?.message || "Error Fetching Data")
             }
         }
         fetchDepartment()
         fetchDoctor()
         fetchPatient()
-        fetchPatientFull()
     }, [])
 
     const renderDepartment = () => {
@@ -180,7 +160,7 @@ export const PatientAppointment = () => {
             const endTime = daySchedule.endTime;
             const intervalTime = daySchedule.intervalTime;
 
-            const appointments = appointment.filter(item => item.date.split('T')[0] === input.date).map(item => item.time)
+            const appointments = appointment.filter(item => item.date.split('T')[0] === input.date && item.status !== "cancelled").map(item => item.time)
 
             const timeSlots = [];
             let [startHour, startMinute] = startTime.split(':').map(Number);
@@ -197,7 +177,7 @@ export const PatientAppointment = () => {
                         type="button"
                         value={formattedTime}
                         className={isBooked ? 'patientAppointment-btn-booked' : isSelected ? 'patientAppointment-btn-selected' : 'patientAppointment-btn-available'}
-                        onClick={isBooked ? null : () => setInput(prev => ({ ...prev, time : isSelected ? "" : formattedTime }))}
+                        onClick={isBooked ? null : () => setInput(prev => ({ ...prev, time: isSelected ? "" : formattedTime }))}
                     />
                 );
 
@@ -222,12 +202,12 @@ export const PatientAppointment = () => {
 
     const handelSubmit = (e) => {
         e.preventDefault()
-        if (patientId !== null && input.doctor !== "" && input.date !== "" && input.time) {
+        if (patient._id !== null && input.doctor !== "" && input.date !== "" && input.time !== "") {
             const sendData = async () => {
                 console.log(input)
                 try {
                     const data = {
-                        patientId: patientId,
+                        patientId: patient._id,
                         doctorId: input.doctor,
                         date: input.date,
                         time: input.time
@@ -247,46 +227,95 @@ export const PatientAppointment = () => {
         }
     }
 
+    const renderPendingAppointment = () => {
+        const patientAppointment = patient.appointments
+        if (patientAppointment.length === 0) {
+            return null
+        } else {
+            return (
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                    </tr>
+                    {patientAppointment.map((item, index) => (
+                        <tr key={index}>
+                            <td>{item.doctor.name}</td>
+                            <td>{item.date.split('T')[0]}</td>
+                            <td>{item.time}</td>
+                            <td className='patientAppointment-appointment'>{item.status === "completed" ? <span className='patientAppointment-span-complete'>Completed</span> : item.status === "cancelled" ? <span className='patientAppointment-span-cancel'>Cancelled</span> : <button className='patientAppointment-button-cancel' onClick={() => handleCancel(item._id)}>Cancel</button>}</td>
+                        </tr>
+                    ))}
+                </table>
+            )
+        }
+    }
+    const handleCancel = (id) => {
+        const sendData = async () => {
+            try {
+                const data = {
+                    _id: id
+                }
+                const response = await axiosInstance.post("/appointment/cancel", data)
+                if (response.data.success) {
+                    alert(response.data.message)
+                } else {
+                    alert(response.data.message)
+                }
+            } catch (error) {
+                alert(error.response?.data?.message || "Error Sending To Server")
+            }
+        }
+        sendData()
+    }
     return (
         <div className='patientAppointment'>
             <div className='patientAppointment-container'>
-                <h1>Patient Appointment</h1>
-                <form>
-                    <div className='patientAppointment-input-div'>
-                        <div className='patientAppointment-input'>
-                            <label>Department</label>
-                            <select name="department" value={input.department} onChange={handleChange}>
-                                <option value="">Select Department</option>
-                                {renderDepartment()}
-                            </select>
+                <div className='patientAppointment-container-new'>
+                    <h1>Patient Appointment</h1>
+                    <form>
+                        <div className='patientAppointment-input-div'>
+                            <div className='patientAppointment-input'>
+                                <label>Department</label>
+                                <select name="department" value={input.department} onChange={handleChange}>
+                                    <option value="">Select Department</option>
+                                    {renderDepartment()}
+                                </select>
+                            </div>
+                            <div className='patientAppointment-input'>
+                                <label>Doctor</label>
+                                <select name="doctor" value={input.doctor} onChange={handleChange}>
+                                    <option value="">Select Doctor</option>
+                                    {renderDoctor()}
+                                </select>
+                            </div>
+                            <div className='patientAppointment-btn'>
+                                <button onClick={handelSearch}>Search</button>
+                                <button onClick={handelClear}>Clear</button>
+                            </div>
+                            {showDateSelect && (<div className='patientAppointment-input'>
+                                <label>Date</label>
+                                <select name="date" value={input.date} onChange={handleChange}>
+                                    <option value="">Select Date</option>
+                                    {renderDate()}
+                                </select>
+                            </div>)}
+                            <div className='patientAppointment-time'>
+                                <h3>Available Time</h3>
+                                {renderSchedule()}
+                            </div>
+                            <div className='patientAppointment-btn'>
+                                <button onClick={handelSubmit}>Book</button>
+                            </div>
                         </div>
-                        <div className='patientAppointment-input'>
-                            <label>Doctor</label>
-                            <select name="doctor" value={input.doctor} onChange={handleChange}>
-                                <option value="">Select Doctor</option>
-                                {renderDoctor()}
-                            </select>
-                        </div>
-                        <div className='patientAppointment-btn'>
-                            <button onClick={handelSearch}>Search</button>
-                            <button onClick={handelClear}>Clear</button>
-                        </div>
-                        {showDateSelect && (<div className='patientAppointment-input'>
-                            <label>Date</label>
-                            <select name="date" value={input.date} onChange={handleChange}>
-                                <option value="">Select Date</option>
-                                {renderDate()}
-                            </select>
-                        </div>)}
-                        <div className='patientAppointment-time'>
-                            <h3>Available Time</h3>
-                            {renderSchedule()}
-                        </div>
-                        <div className='patientAppointment-btn'>
-                            <button onClick={handelSubmit}>Book</button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div className='patientAppointment-container-old'>
+                    <h1>Pending Appointments</h1>
+                    {renderPendingAppointment()}
+                </div>
             </div>
         </div>
     )

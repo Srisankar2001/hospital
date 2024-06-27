@@ -1,0 +1,38 @@
+.department {
+    min-height: 100%;
+    width: 100vw;
+    background-color: #E7F3ED;
+    color: #3e5569;
+}
+
+.department-container {
+    padding: 10px 15px;
+    margin: 20px 15px;
+    background-color: #fff;
+    border-radius: 2px;
+}
+
+.department-container h1 {
+    color: #E57498;
+    font-size: 40px;
+    padding-bottom: .5rem;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eeeeee;
+}
+.department-div{
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    font-size: 22px;
+}
+.department-div div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.department-div img{
+    height: 150px;
+    width: 150px;
+    border-radius: 10px;
+}

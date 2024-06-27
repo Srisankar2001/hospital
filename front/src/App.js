@@ -26,6 +26,9 @@ import { AllAppointments } from './Components/Admin/Appointments/AllAppointments
 import { AddAdmin } from './Components/Admin/AddAdmin/AddAdmin';
 import { AllAdmins } from './Components/Admin/AllAdmins/AllAdmins';
 import { DoctorAppointment } from './Components/DoctorAppointment/DoctorAppointment';
+import { About } from './Components/About/About';
+import { Contact } from './Components/Contact/Contact';
+import { Departments } from './Components/Departments/Departments';
 
 export const AppContext = createContext(null);
 
@@ -74,7 +77,10 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/" element={<Home />} />
+                <Route path='/about' element={<About/>} />
+                <Route path='/contact' element={<Contact/>} />
                 <Route path="/doctors" element={<Doctors />} />
+                <Route path="/departments" element={<Departments />} />
 
                 {auth.isPatient && <Route path="/appointment" element={<PatientAppointment/>}/>}
 

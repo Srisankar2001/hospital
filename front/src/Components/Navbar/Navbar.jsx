@@ -18,10 +18,10 @@ export const Navbar = () => {
                 <img src={logo} alt="Logo" className='navbar-logo' />
                 <ul className='navbar-link-full'>
                     <li><Link to='/'>Home<hr/></Link></li>
-                    <li>About<hr/></li>
+                    <li><Link to='/about'>About<hr/></Link></li>
                     <li><Link to='/doctors'>Doctors<hr/></Link></li>
-                    <li>Departments<hr/></li>
-                    <li>Contact<hr/></li>
+                    <li><Link to='/departments'>Departments<hr/></Link></li>
+                    <li><Link to='/contact'>Contact<hr/></Link></li>
                     {(auth.isPatient || auth.isDoctor) ?  <li><Link to='/appointment'>Appointments<hr/></Link></li> : <li><Link to='/register'>Register<hr/></Link></li>}
                 </ul>
                 <div className='navbar-header-right'>
@@ -33,11 +33,11 @@ export const Navbar = () => {
             </div>
             <ul className={`navbar-link-half ${isOpen ? 'open':''}`}>
                 <li><Link to='/'>Home<hr/></Link></li>
-                <li>About</li>
+                <li><Link to='/about'>About</Link></li>
                 <li><Link to='/doctors'>Doctors</Link></li>
-                <li>Departments</li>
-                <li>Contact</li>
-                <li><Link to='/register'>Register</Link></li>
+                <li><Link to='/departments'>Departments</Link></li>
+                <li><Link to='/contact'>Contact</Link></li>
+                {(auth.isPatient || auth.isDoctor) ?  <li><Link to='/appointment'>Appointments</Link></li> : <li><Link to='/register'>Register</Link></li>}
             </ul>
         </div>
     );
