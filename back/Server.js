@@ -12,6 +12,7 @@ const loginRouter = require("./Router/LoginRouter")
 const authRouter = require("./Router/AuthRouter")
 const scheduleRouter = require("./Router/ScheduleRouter")
 const appointmentRouter = require("./Router/AppointmentRouter")
+const countRouter = require("./Router/CountRouter")
 
 const port = process.env.PORT || 3001
 const mongoURI = process.env.MONGO_URI;
@@ -34,6 +35,7 @@ app.use("/login",loginRouter)
 app.use("/auth",authRouter)
 app.use("/schedule",scheduleRouter)
 app.use("/appointment",appointmentRouter)
+app.use("/count",countRouter)
 
 mongoose.connect(mongoURI)
 
