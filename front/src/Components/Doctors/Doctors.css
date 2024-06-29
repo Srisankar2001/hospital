@@ -19,7 +19,12 @@
     margin-bottom: 15px;
     border-bottom: 1px solid #eeeeee;
 }
-
+.doctor-department-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 .doctor-department h2 {
     color: #E57498;
     font-size: 30px;

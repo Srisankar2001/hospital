@@ -5,6 +5,9 @@ import home from "../../../Assets/home.png"
 import axiosInstance from '../../../Config/axiosConfig'
 import { AppointmentBarChart, AppointmentDoughnutChart} from '../../Chart/PatientChart'
 
+import doctor from "../../../Assets/doctor.png"
+import admin from "../../../Assets/admin.png"
+import patient from "../../../Assets/patient.png"
 export const AdminDashboard = () => {
   const [userCount, setUserCount] = useState({})
   useEffect(() => {
@@ -28,13 +31,13 @@ export const AdminDashboard = () => {
       <div className='admin-dashboard-container'>
         <section>
           <div>
-            <span>Patient : {userCount.patientCount || 0}</span>
+            <span><img src={patient} alt=''/>Patient : {userCount.patientCount || 0}</span>
           </div>
           <div>
-            <span>Doctor : {userCount.doctorCount || 0}</span>
+            <span><img src={doctor} alt=''/>Doctor : {userCount.doctorCount || 0}</span>
           </div>
           <div>
-            <span>Admin : {userCount.adminCount || 0}</span>
+            <span><img src={admin} alt=''/>Admin : {userCount.adminCount || 0}</span>
           </div>
         </section>
         <div>

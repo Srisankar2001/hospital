@@ -23,7 +23,7 @@ export const validate = (input) => {
 
     if(name === ""){
         error.name = "Name field is empty"
-    }else if(!(/^[a-zA-Z][a-zA-Z\s]*$/.test(name))){
+    }else if(!(/^[a-zA-Z]{2,}( [a-zA-Z]{2,})?$/.test(name))){
         error.name = "Invalid name"
     }else{
         error.name = ""
@@ -31,7 +31,7 @@ export const validate = (input) => {
 
     if(email === ""){
         error.email = "Email field is empty"
-    }else if(!(/^[a-zA-Z][a-zA-Z0-9._%+-]*@[a-zA-Z]+\.[a-zA-Z]{2,}$/.test(email))){
+    }else if(!(/^[a-zA-Z]{2}[a-zA-Z0-9._%+-]*@[a-zA-Z]+\.[a-zA-Z]{2,}$/.test(email))){
         error.email = "Invalid email"
     }else{
         error.email = ""

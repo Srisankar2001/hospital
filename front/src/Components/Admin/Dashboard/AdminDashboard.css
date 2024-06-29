@@ -21,19 +21,20 @@
     margin: 30px;
 }
 
-.admin-dashboard-container section span{
-    margin: 10px;
+.admin-dashboard-container section div span{
+    margin: 10px 100px 10px 10px;
     padding: 10px 20px;
     font-size: 22px;
-    border: 1px solid #000;
     border-radius: 5px;
+    background-color: #E57498;
+    color: #fff;
+}
+.admin-dashboard-container section div span img{
+    margin-top: 6px;
+    margin-right: 10px;
 }
 
 .admin-dashboard-container div{
     display: flex;
     align-items: center;
-}
-.admin-dashboard-bar{
-    height: 500px;
-    width: 400px;
 }

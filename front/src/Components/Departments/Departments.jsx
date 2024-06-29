@@ -26,7 +26,7 @@ export const Departments = () => {
 
     const renderData = () => {
         if (department.length === 0) {
-            return <div>No doctor available to display</div>;
+            return <div>No department available to display</div>;
         } else {
             return department.map((item, index) => (
                 <div key={index} className='department-div'>

@@ -61,40 +61,30 @@ export const AppointmentBarChart = () => {
 
     if (patientCount.length !== 0) {
         const data = {
-            labels: [patientCount[0].date, patientCount[1].date, patientCount[2].date, patientCount[3].date, patientCount[4].date],
+            labels: patientCount.map(pc => pc.date),
             datasets: [
                 {
-                    label: `Appointments on ${patientCount[0].date}`,
-                    data: [patientCount[0].completeCount, patientCount[0].cancelCount, patientCount[0].scheduledCount],
-                    backgroundColor: ['#ef6e6e', '#22c6ab', '#ffaa2a'],
+                    label: 'Completed',
+                    data: patientCount.map(pc => pc.completeCount),
+                    backgroundColor: '#ef6e6e',
                 },
                 {
-                    label: `Appointments on ${patientCount[1].date}`,
-                    data: [patientCount[1].completeCount, patientCount[1].cancelCount, patientCount[1].scheduledCount],
-                    backgroundColor: ['#ef6e6e', '#22c6ab', '#ffaa2a'],
+                    label: 'Cancelled',
+                    data: patientCount.map(pc => pc.cancelCount),
+                    backgroundColor: '#ffaa2a',
                 },
                 {
-                    label: `Appointments on ${patientCount[2].date}`,
-                    data: [patientCount[2].completeCount, patientCount[2].cancelCount, patientCount[2].scheduledCount],
-                    backgroundColor: ['#ef6e6e', '#22c6ab', '#ffaa2a'],
-                },
-                {
-                    label: `Appointments on ${patientCount[3].date}`,
-                    data: [patientCount[3].completeCount, patientCount[3].cancelCount, patientCount[3].scheduledCount],
-                    backgroundColor: ['#ef6e6e', '#22c6ab', '#ffaa2a'],
-                },
-                {
-                    label: `Appointments on ${patientCount[4].date}`,
-                    data: [patientCount[4].completeCount, patientCount[4].cancelCount, patientCount[4].scheduledCount],
-                    backgroundColor: ['#ef6e6e', '#22c6ab', '#ffaa2a'],
+                    label: 'Scheduled',
+                    data: patientCount.map(pc => pc.scheduledCount),
+                    backgroundColor: '#22c6ab',
                 },
             ]
         }
         const options = {
-            
+    
         }
         return (
-            <div>
+            <div style={{ position: 'relative', height: '500px', width: '700px' }}>
                 <Bar
                     data={data}
                     options={options}
@@ -136,7 +126,7 @@ export const AppointmentDoughnutChart = () => {
 
     }
     return (
-        <div>
+        <div style={{ position: 'relative', height: '300px', width: '300px' }}>
             <Doughnut
                 data={data}
                 options={options}
