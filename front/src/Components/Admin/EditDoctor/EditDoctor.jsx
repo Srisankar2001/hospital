@@ -12,7 +12,7 @@ export const EditDoctor = () => {
     const location = useLocation()
     const { _id } = location.state
     if (!_id) {
-        navigate("/viewDoctor")
+        navigate("/allDoctors")
     }
     const [input, setInput] = useState({
         name: "",
@@ -52,11 +52,11 @@ export const EditDoctor = () => {
                     })
                 } else {
                     alert(response.data.message)
-                    navigate("/viewDoctor")
+                    navigate("/viewDoctor",{ state: { _id: _id } })
                 }
             } catch (error) {
                 alert(error.response?.data?.message || "Error Fetching Data")
-                navigate("/viewDoctor")
+                navigate("/viewDoctor",{ state: { _id: _id } })
             }
         }
         fetchData()
@@ -117,7 +117,7 @@ export const EditDoctor = () => {
                     const response = input.image instanceof File ? await axiosInstance.put("/doctort/updateWithImage", data, config) : await axiosInstance.put("/doctor/updateWithoutImage", data)
                     if (response.data.success) {
                         alert(response.data.message)
-                        navigate("/viewDoctor")
+                        navigate("/viewDoctor",{ state: { _id: _id } })
                     } else {
                         alert(response.data.message)
                     }

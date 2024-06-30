@@ -62,24 +62,52 @@ const doctorSchema = new mongoose.Schema({
         type: String
     }
 });
+doctorSchema.pre('save', async function (next) {
+    const doc = this; 
 
-doctorSchema.post('save', async function (doc) {
     try {
         if (doc.isNew) {
             if (doc.department) {
                 const department = await Department.findById(doc.department).exec();
-                department.doctors.push(doc._id);
-                await department.save();
+                if (department) {
+                    department.doctors.push(doc._id); 
+                    await department.save();
+                } else {
+                    console.error("Department Not found in pre save hook");
+                }
+            } else {
+                console.error("Department ID not provided in the document");
             }
-        }
 
-        const schedule = new Schedule({ doctor: doc._id });
-        const savedSchedule = await schedule.save();
-        await Doctor.findByIdAndUpdate(doc._id, { schedule: savedSchedule._id });
+            const schedule = new Schedule({ doctor: doc._id });
+            const savedSchedule = await schedule.save();
+            doc.schedule = savedSchedule._id; 
+        } 
     } catch (error) {
-        console.error('Error in post save hook: ', error);
+        console.error('Error in pre save hook: ', error);
     }
+
+    next(); 
 });
+
+// doctorSchema.post('save', async function (doc) {
+//     try {
+
+//         if (doc.department) {
+//             const department = await Department.findById(doc.department).exec();
+//             department.doctors.push(doc._id);
+//             await department.save();
+//         } else {
+//             console.error("Deparment Not found  in post save hook")
+//         }
+
+//         const schedule = new Schedule({ doctor: doc._id });
+//         const savedSchedule = await schedule.save();
+//         await Doctor.findByIdAndUpdate(doc._id, { schedule: savedSchedule._id });
+//     } catch (error) {
+//         console.error('Error in post save hook: ', error);
+//     }
+// });
 
 const Doctor = mongoose.model("Doctor", doctorSchema);
 

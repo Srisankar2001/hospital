@@ -14,7 +14,7 @@ export const ViewPatient = () => {
     const location = useLocation()
     const { _id } = location.state
     if (!_id) {
-        navigate("/allDoctors")
+        navigate("/allPatients")
     }
     const [data, setData] = useState({
         id: "",

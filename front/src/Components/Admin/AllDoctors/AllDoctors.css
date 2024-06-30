@@ -19,25 +19,37 @@
     margin-bottom: 15px;
     border-bottom: 1px solid #eeeeee;
 }
-.admin-allDoctors-container img{
+
+.admin-allDoctors-container img {
     height: 150px;
     width: 150px;
 }
-.admin-allDoctors-container table{
+
+.admin-allDoctors-container table div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.admin-allDoctors-container table {
     padding: 10px 20px;
-    width:100%;
+    width: 100%;
     display: table;
 }
-.admin-allDoctors-container table tr{
+
+.admin-allDoctors-container table tr {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
-.admin-allDoctors-container table tr th{
+
+.admin-allDoctors-container table tr th {
     font-size: 18px;
     font-weight: 400;
     border: 1px solid #dee2e6;
 }
-.admin-allDoctors-container table tr td{
+
+.admin-allDoctors-container table tr td {
     font-size: 15px;
     font-weight: 200;
     border: 1px solid #dee2e6;
@@ -47,10 +59,12 @@
     justify-content: center;
     padding: 10px 0px;
 }
-.admin-allDoctors-container table tr td button{
+
+.admin-allDoctors-container table tr td button {
     margin: 5px;
 }
-.admin-allDoctors-container table tr td .admin-allDoctors-edit{
+
+.admin-allDoctors-container table tr td .admin-allDoctors-edit {
     color: #fff;
     font-size: 15px;
     font-weight: 400;
@@ -59,11 +73,13 @@
     padding: 10px 30px;
     border-radius: 5px;
 }
-.admin-allDoctors-container table tr td .admin-allDoctors-edit:hover{
+
+.admin-allDoctors-container table tr td .admin-allDoctors-edit:hover {
     background-color: #157347;
     border: 1px solid #146c43;
 }
-.admin-allDoctors-container table tr td .admin-allDoctors-unblock{
+
+.admin-allDoctors-container table tr td .admin-allDoctors-unblock {
     color: #fff;
     font-size: 15px;
     font-weight: 400;
@@ -72,11 +88,13 @@
     padding: 10px 30px;
     border-radius: 5px;
 }
-.admin-allDoctors-container table tr td .admin-allDoctors-unblock:hover{
+
+.admin-allDoctors-container table tr td .admin-allDoctors-unblock:hover {
     background-color: #ffca2c;
-    border: 1px solid  #ffc720;
+    border: 1px solid #ffc720;
 }
-.admin-allDoctors-container table tr td .admin-allDoctors-block{
+
+.admin-allDoctors-container table tr td .admin-allDoctors-block {
     color: #fff;
     font-size: 15px;
     font-weight: 400;
@@ -85,7 +103,8 @@
     padding: 10px 30px;
     border-radius: 5px;
 }
-.admin-allDoctors-container table tr td .admin-allDoctors-block:hover{
+
+.admin-allDoctors-container table tr td .admin-allDoctors-block:hover {
     background-color: #bb2d3b;
     border: 1px solid #b02a37;
 }

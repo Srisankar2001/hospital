@@ -23,6 +23,12 @@
     height: 150px;
     width: 150px;
 }
+.admin-allAppointments-container table div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
 .admin-allAppointments-container table{
     padding: 10px 20px;
     width:100%;

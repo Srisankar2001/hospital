@@ -19,25 +19,37 @@
     margin-bottom: 15px;
     border-bottom: 1px solid #eeeeee;
 }
-.admin-allPatients-container img{
+
+.admin-allPatients-container img {
     height: 150px;
     width: 150px;
 }
-.admin-allPatients-container table{
+
+.admin-allPatients-container table {
     padding: 10px 20px;
-    width:100%;
+    width: 100%;
     display: table;
 }
-.admin-allPatients-container table tr{
+
+.admin-allPatients-container table div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.admin-allPatients-container table tr {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
-.admin-allPatients-container table tr th{
+
+.admin-allPatients-container table tr th {
     font-size: 18px;
     font-weight: 400;
     border: 1px solid #dee2e6;
 }
-.admin-allPatients-container table tr td{
+
+.admin-allPatients-container table tr td {
     font-size: 15px;
     font-weight: 200;
     border: 1px solid #dee2e6;
@@ -47,10 +59,12 @@
     justify-content: center;
     padding: 10px 0px;
 }
-.admin-allPatients-container table tr td button{
+
+.admin-allPatients-container table tr td button {
     margin: 5px;
 }
-.admin-allPatients-container table tr td .admin-allPatients-edit{
+
+.admin-allPatients-container table tr td .admin-allPatients-edit {
     color: #fff;
     font-size: 15px;
     font-weight: 400;
@@ -59,28 +73,32 @@
     padding: 10px 30px;
     border-radius: 5px;
 }
-.admin-allPatients-container table tr td .admin-allPatients-edit:hover{
+
+.admin-allPatients-container table tr td .admin-allPatients-edit:hover {
     background-color: #157347;
     border: 1px solid #146c43;
 }
 
-.admin-allPatients-status-scheduled{
+.admin-allPatients-status-scheduled {
     background-color: #ffc107;
     color: #fff;
     padding: 2px 5px;
 }
-.admin-allPatients-status-cancelled{
+
+.admin-allPatients-status-cancelled {
     background-color: #dc3545;
     color: #fff;
     padding: 2px 5px;
 }
-.admin-allPatients-status-completed{
-    background-color:  #157347;
+
+.admin-allPatients-status-completed {
+    background-color: #157347;
     color: #fff;
     padding: 2px 5px;
 }
-.admin-allPatients-status-not{
-    background-color:  #000;
+
+.admin-allPatients-status-not {
+    background-color: #000;
     color: #fff;
     padding: 2px 5px;
 }
